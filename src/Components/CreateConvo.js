@@ -26,7 +26,7 @@ function CreateConvo(){
 
   function handleFormSubmit(e){
     e.preventDefault();
-    // Cards += {title, description, image};
+    // Cards += {title, description, image}; To link into a database
     setTitle("");
     setImage("");
     setDescription("");
