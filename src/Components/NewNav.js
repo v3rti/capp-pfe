@@ -1,14 +1,12 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core'
+import Pages from './Pages';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
-import { AddCircleOutline, SubjectOutlined } from '@material-ui/icons';
-
 import {AppBar, Toolbar} from '@material-ui/core'
-
 import {Avatar} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
+import {useHistory, useLocation} from 'react-router-dom';
 
 
 
@@ -47,6 +45,9 @@ const useStyles = makeStyles((theme) => {
       marginLeft: theme.spacing(2),
       backgroundColor: "red",
       fontSize: 18
+    },
+    currentPage: {
+      background: "#E8E8E8"
     }
   }
 })
@@ -54,22 +55,24 @@ const useStyles = makeStyles((theme) => {
 function NewNav({children}) {
   
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
+
+  const handleLink = (item) => {
+    history.push(item.path);
+  }
+
+  const handleCurrentPage = (item) => {
+    if(location.pathname === item.path){
+      return classes.currentPage
+    }
+    else {
+      return null
+    }
+  }
+
   
 
-  const menuItems = [
-    {
-      text: 'View Conversations',
-      icon: <SubjectOutlined color="secondary" />,
-      path: '/'
-    },
-    {
-      text: 'New Conversation',
-      icon: <AddCircleOutline color="secondary" />,
-      path: '/create'
-    },
-  ]
-
-  
 
   return (
     <div className={classes.root}>
@@ -116,12 +119,15 @@ function NewNav({children}) {
         {/* list / links */}
 
         <List>
-          {menuItems.map(item => {
-            return <ListItem button>
+          {Pages.map(item => {
+            return <ListItem button
+            className={handleCurrentPage(item)}
+            onClick={() => handleLink(item)}
+            >
                 <ListItemIcon>
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={item.text} />
+                <ListItemText primary={item.title} />
             </ListItem>
           })}
         </List>

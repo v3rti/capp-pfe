@@ -1,13 +1,35 @@
-import './App.css';
 import NewNav from './Components/NewNav';
-import SomeComp from './Components/SomeComp';
+import CreateConvo from './Components/CreateConvo';
+import AllConvos from './Components/AllConvos';
+import NotFound from './Components/NotFound';
+import HomePage from './Components/HomePage';
+import Friends from './Components/Friends';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 function App() {
   return (
     <div >
+      <BrowserRouter>
       <NewNav>
-        <SomeComp />
-      </NewNav>
+        <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/create">
+              <CreateConvo />
+            </Route>
+            <Route exact path="/conversations">
+              <AllConvos />
+            </Route>
+            <Route exact path="/friends">
+              <Friends />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+        </Switch>
+        </NewNav>
+      </BrowserRouter>
     </div>
   );
 }
