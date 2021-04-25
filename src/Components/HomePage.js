@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
-import Cards from './TestCards/Cards';
+
 
 const useStyles = makeStyles({
   cardsWrapper: {
@@ -39,14 +39,18 @@ const useStyles = makeStyles({
 function HomePage(){
 
   const classes = useStyles();
+  const [convos,setConvos] = useState([]);
+  
+  useEffect(() => {
+    fetch('https://jsonstorage.net/api/items/9da9a5e6-9270-4d92-9629-0e523240812e')
+    .then(res => res.json())
+    .then(data => setConvos(data.notes));
+  },[])
 
   return( 
 
-      
-
-
     <div className={classes.cardsWrapper}>
-      {Cards.map(card => {
+      {convos.map(card => {
         return (
         
         <Card className={classes.cardExample}>

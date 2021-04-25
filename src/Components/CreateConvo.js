@@ -1,9 +1,50 @@
 import React from 'react';
+import {Button, Grid, makeStyles, TextField} from '@material-ui/core';
+import {useState} from 'react';
+
+
+
+const useStyles = makeStyles(theme => {
+  return {
+    textF: {
+      margin: "auto",
+      display: "block",
+      width: 700,
+      marginBottom: 20
+    }
+  }
+});
+
 
 function CreateConvo(){
+  
+  const classes = useStyles();
+  const [title,setTitle] = useState("");
+  const [image,setImage] = useState("");
+  const [description,setDescription] = useState("");
+
+
+  function handleFormSubmit(e){
+    e.preventDefault();
+    // Cards += {title, description, image};
+    setTitle("");
+    setImage("");
+    setDescription("");
+  }
 
   return(
-    <div>Create a new conversetion here</div>
+    <div>
+      <Grid container>
+        <Grid item xs={12}>
+          <form onSubmit={handleFormSubmit}>
+            <TextField value={title} onChange={(e) => setTitle(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Title"/>
+            <TextField value={image} onChange={(e) => setImage(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Image Source"/>
+            <TextField value={description} onChange={(e) => setDescription(e.target.value)} className={classes.textF} fullWidth variant="outlined" multiline rows={4} label="Description"/>
+            <Button type="submit" className={classes.textF} variant="contained" color="secondary">Create Conversation</Button>
+          </form>
+        </Grid>
+      </Grid>
+    </div>
   )
 }
 
