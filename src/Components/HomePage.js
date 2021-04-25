@@ -42,7 +42,7 @@ function HomePage(){
   const [convos,setConvos] = useState([]);
   
   useEffect(() => {
-    fetch('https://jsonstorage.net/api/items/9da9a5e6-9270-4d92-9629-0e523240812e')
+    fetch('/api/cards.json')
     .then(res => res.json())
     .then(data => setConvos(data.notes));
   },[])
