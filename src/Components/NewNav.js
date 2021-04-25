@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => {
       padding: theme.spacing(3)
     },
     appbar: {
-      width: `calc(100% - ${drawerWidth}px)`
+      width: `calc(100% - ${drawerWidth}px)`,
+      
     },
     toolbar: theme.mixins.toolbar,
     date: {
@@ -43,8 +44,9 @@ const useStyles = makeStyles((theme) => {
     },
     avatar: {
       marginLeft: theme.spacing(2),
-      backgroundColor: "red",
-      fontSize: 18
+      backgroundColor: "White",
+      fontSize: 18,
+      color: "#ff4081"
     },
     currentPage: {
       background: "#E8E8E8"
@@ -81,16 +83,17 @@ function NewNav({children}) {
       <AppBar
        elevation
         className={classes.appbar}
+        color="secondary"
       >
 
         <Toolbar>
           <Typography className={classes.date}>
-              Today is the 
+              New day, new opportunity
           </Typography>
           <Typography
           end
           >
-            Mario
+            Logged in as
           </Typography>
           <Avatar 
           className={classes.avatar}
