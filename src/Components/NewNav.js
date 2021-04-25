@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core'
+import {IconButton, makeStyles} from '@material-ui/core'
 import Pages from './Pages';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
@@ -43,13 +43,15 @@ const useStyles = makeStyles((theme) => {
       flexGrow: 1
     },
     avatar: {
-      marginLeft: theme.spacing(2),
       backgroundColor: "White",
       fontSize: 18,
       color: "#ff4081"
     },
     currentPage: {
       background: "#E8E8E8"
+    },
+    avaIcon: {
+      marginLeft: 5
     }
   }
 })
@@ -95,11 +97,14 @@ function NewNav({children}) {
           >
             Logged in as
           </Typography>
-          <Avatar 
+          <IconButton className={classes.avaIcon}>
+          <Avatar
+          button 
           className={classes.avatar}
            >
              M
            </Avatar>
+           </IconButton>
         </Toolbar>
       </AppBar>
 
