@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Grid, makeStyles, TextField} from '@material-ui/core';
 import {useState} from 'react';
 import axios from 'axios';
-
+import {Alert, AlertTitle} from '@material-ui/lab/';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -10,6 +10,11 @@ const useStyles = makeStyles(theme => {
       margin: "auto",
       display: "block",
       width: 700,
+      marginBottom: 20
+    },
+    notif: {
+      width: 700,
+      margin: "auto",
       marginBottom: 20
     }
   }
@@ -22,6 +27,7 @@ function CreateConvo(){
   const [title,setTitle] = useState("");
   const [image,setImage] = useState("");
   const [description,setDescription] = useState("");
+  const [alert,setAlert] = useState(false);
 
 
   async function handleFormSubmit(e){
@@ -37,14 +43,26 @@ function CreateConvo(){
     await axios.post('/convos', newConvo)
     .then(res => console.log(res.data));
 
+    
     setTitle("");
     setImage("");
     setDescription("");
+    setAlert(true);
+    setTimeout(() => setAlert(false),5000);
   }
 
+  
   return(
     <div>
       <Grid container>
+
+        {alert ? <Grid item xs={12}>
+          <Alert className={classes.notif} severity="success">
+            <AlertTitle>Created Successfully</AlertTitle>
+            Your Conversation is now Available — <strong>check it out!</strong>
+          </Alert>
+        </Grid> : null}
+
         <Grid item xs={12}>
           <form onSubmit={handleFormSubmit}>
             <TextField value={title} onChange={(e) => setTitle(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Title"/>
