@@ -2,6 +2,7 @@ import { AddCircleOutline} from '@material-ui/icons';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MessageOutlinedIcon from '@material-ui/icons/MessageOutlined';
 import GroupOutlinedIcon from '@material-ui/icons/GroupOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const sitePages = [
   
@@ -24,6 +25,11 @@ const sitePages = [
       title: 'Friends',
       icon: <GroupOutlinedIcon color="secondary" />,
       path: '/friends'
+    },
+    {
+      title: 'Search',
+      icon: <SearchOutlinedIcon color="secondary" />,
+      path: '/search'
     }
   
 ]

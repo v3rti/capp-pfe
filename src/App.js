@@ -4,6 +4,7 @@ import AllConvos from './Components/AllConvos';
 import NotFound from './Components/NotFound';
 import HomePage from './Components/HomePage';
 import Friends from './Components/Friends';
+import Search from './Components/Search';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
             </Route>
             <Route exact path="/friends">
               <Friends />
+            </Route>
+            <Route exact path="/Search">
+              <Search />
             </Route>
             <Route>
               <NotFound />
