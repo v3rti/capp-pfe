@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
   cardExample: {
     margin: 15,
-    maxWidth: 320,
+    width: 320
   },
   cardMediaImage: {
     height: 180,
@@ -42,9 +42,9 @@ function HomePage(){
   const [convos,setConvos] = useState([]);
   
   useEffect(() => {
-    fetch('/api/cards.json')
+    fetch('/convos')
     .then(res => res.json())
-    .then(data => setConvos(data.notes));
+    .then(data => setConvos(data));
   },[])
 
   return( 

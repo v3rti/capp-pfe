@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid, makeStyles, TextField} from '@material-ui/core';
 import {useState} from 'react';
-
+import axios from 'axios';
 
 
 const useStyles = makeStyles(theme => {
@@ -24,9 +24,19 @@ function CreateConvo(){
   const [description,setDescription] = useState("");
 
 
-  function handleFormSubmit(e){
+  async function handleFormSubmit(e){
     e.preventDefault();
     // Cards += {title, description, image}; To link into a database
+
+    const newConvo = {
+      title: title,
+      description: description,
+      image: image
+    }
+
+    await axios.post('/convos', newConvo)
+    .then(res => console.log(res.data));
+
     setTitle("");
     setImage("");
     setDescription("");
