@@ -1,8 +1,10 @@
 import React from 'react';
-import {Button, Grid, makeStyles, TextField} from '@material-ui/core';
+import {Button, Grid, makeStyles, TextField, Typography} from '@material-ui/core';
 import {useState} from 'react';
 import axios from 'axios';
 import {Alert, AlertTitle} from '@material-ui/lab/';
+import {Link, useHistory} from 'react-router-dom';
+
 
 const useStyles = makeStyles(theme => {
   return {
@@ -16,6 +18,9 @@ const useStyles = makeStyles(theme => {
       width: 700,
       margin: "auto",
       marginBottom: 20
+    },
+    checkItOut: {
+      cursor: "pointer"
     }
   }
 });
@@ -28,6 +33,8 @@ function CreateConvo(){
   const [image,setImage] = useState("");
   const [description,setDescription] = useState("");
   const [alert,setAlert] = useState(false);
+  const [alertCurrentCard,setAlertCurrentCard] = useState("");
+  const history = useHistory();
 
 
   async function handleFormSubmit(e){
@@ -59,7 +66,10 @@ function CreateConvo(){
         {alert ? <Grid item xs={12}>
           <Alert className={classes.notif} severity="success">
             <AlertTitle>Created Successfully</AlertTitle>
-            Your Conversation is now Available — <strong>check it out!</strong>
+            Your Conversation is now Available — <strong className={classes.checkItOut} color="secondary" onClick={() => history.push('/')} >
+                check it out!
+              </strong>
+            
           </Alert>
         </Grid> : null}
 
