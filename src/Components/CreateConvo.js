@@ -5,6 +5,7 @@ import axios from 'axios';
 import {Alert, AlertTitle} from '@material-ui/lab/';
 import {Link, useHistory} from 'react-router-dom';
 import uniqid from 'uniqid';
+import randomstring from 'randomstring';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -36,14 +37,15 @@ function CreateConvo(){
   const [ranId, setRanId] = useState("");
   const history = useHistory();
 
+  const xd = randomstring.generate(8) + uniqid();
 
   async function handleFormSubmit(e){
     e.preventDefault();
     // Cards += {title, description, image}; To link into a database
     // Setting a random id
-    setRanId(uniqid.process().toString());
-
-
+   
+    setRanId(xd);
+    
     const newConvo = {
       title: title,
       description: description,
@@ -60,12 +62,13 @@ function CreateConvo(){
     setAlert(true);
     setTimeout(() => setAlert(false),5000);
     
+    
   }
 
   
   return(
     <div>
-      
+      <p>{randomstring.generate(8) + uniqid()}</p>
       <Grid container>
 
         {alert ? <Grid item xs={12}>
