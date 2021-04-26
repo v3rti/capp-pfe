@@ -4,7 +4,7 @@ import {useState} from 'react';
 import axios from 'axios';
 import {Alert, AlertTitle} from '@material-ui/lab/';
 import {Link, useHistory} from 'react-router-dom';
-
+import uniqid from 'uniqid';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -33,34 +33,39 @@ function CreateConvo(){
   const [image,setImage] = useState("");
   const [description,setDescription] = useState("");
   const [alert,setAlert] = useState(false);
-  const [alertCurrentCard,setAlertCurrentCard] = useState("");
+  const [ranId, setRanId] = useState("");
   const history = useHistory();
 
 
   async function handleFormSubmit(e){
     e.preventDefault();
     // Cards += {title, description, image}; To link into a database
+    // Setting a random id
+    setRanId(uniqid.process().toString());
+
 
     const newConvo = {
       title: title,
       description: description,
-      image: image
+      image: image,
+      cuid: ranId
     }
-
+    
     await axios.post('/convos', newConvo)
     .then(res => console.log(res.data));
 
-    
     setTitle("");
     setImage("");
     setDescription("");
     setAlert(true);
     setTimeout(() => setAlert(false),5000);
+    
   }
 
   
   return(
     <div>
+      
       <Grid container>
 
         {alert ? <Grid item xs={12}>
