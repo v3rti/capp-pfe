@@ -19,7 +19,10 @@ function App() {
             <Route exact path="/create">
               <CreateConvo />
             </Route>
-            <Route exact path="/conversations">
+            <Route exact path="/conversations/">
+              <AllConvos />
+            </Route>
+            <Route exact path="/conversations/:id">
               <AllConvos />
             </Route>
             <Route exact path="/friends">
