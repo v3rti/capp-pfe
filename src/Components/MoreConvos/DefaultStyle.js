@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
   insideImage: {
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "space-between"
     
   },
   insideButton: { 
@@ -24,6 +24,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.4)"
   }
+  
 
 })
 

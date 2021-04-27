@@ -1,16 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {useParams} from 'react-router-dom';
+import React from 'react';
 import {CardMedia,Card, CardContent, Typography, Button} from '@material-ui/core'
 import useStyles from './DefaultStyle';
-
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 
 function Default(){ 
 
   const classes = useStyles();
-
-  
 
   return(
     <div className={classes.wrapper}>
@@ -19,6 +15,9 @@ function Default(){
           <div className={classes.insideImage}>
             <Button className={classes.insideButton} variant="contained" color="secondary">
               Join Conversation
+            </Button>
+            <Button size="large" className={classes.insideButton} color="secondary" variant="contained" >
+              Next Conversation <NavigateNextIcon className={classes.nextIcon}/>
             </Button>
           </div>
         </CardMedia>

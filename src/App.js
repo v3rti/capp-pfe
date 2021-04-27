@@ -34,15 +34,6 @@ function App() {
             <Route exact path="/Search">
               <Search />
             </Route>
-            <Route exact path="/DefaultConvo">
-              <Default />
-            </Route>
-            <Route exact path="/DbConvo">
-              <DbConvo />
-            </Route>
-            <Route exact path="/DbConvo/:id">
-              <DbConvo />
-            </Route>
             <Route>
               <NotFound />
             </Route>
