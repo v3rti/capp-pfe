@@ -12,7 +12,7 @@ const sitePages = [
       path: '/'
     },
     {
-      title: 'New Conversation',
+      title: 'Create Conversation',
       icon: <AddCircleOutline color="secondary" />,
       path: '/create'
     },

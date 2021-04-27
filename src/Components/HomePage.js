@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
-
+import {useHistory} from 'react-router-dom';
 
 const useStyles = makeStyles({
   cardsWrapper: {
@@ -40,7 +40,8 @@ function HomePage(){
 
   const classes = useStyles();
   const [convos,setConvos] = useState([]);
-  
+  const history = useHistory();
+
   useEffect(() => {
     fetch('/convos')
     .then(res => res.json())
@@ -67,7 +68,7 @@ function HomePage(){
             <Button className={classes.buttons} color="secondary" variant="outlined">
               Join Convo
             </Button>
-            <Button className={classes.buttons} color="secondary" variant="outlined">
+            <Button className={classes.buttons} color="secondary" variant="outlined" onClick={() => history.push(`/conversations/${card.cuid}`)}>
               More Details
             </Button>
           </CardActions>

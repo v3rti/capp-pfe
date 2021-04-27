@@ -8,6 +8,7 @@ import useStyles from './MoreConvos/DefaultStyle';
 
 function AllConvos(){ 
   const [compo,setCompo] = useState();
+  const classes = useStyles();
 
   const {id} = useParams();
   useEffect(() =>  {
@@ -21,7 +22,6 @@ function AllConvos(){
     })
   },[])
   
-  const classes = useStyles();
   
   
   return(
