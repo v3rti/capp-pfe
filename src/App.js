@@ -6,6 +6,9 @@ import HomePage from './Components/HomePage';
 import Friends from './Components/Friends';
 import Search from './Components/Search';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Default from './Components/MoreConvos/Default';
+import DbConvo from './Components/MoreConvos/DbConvo';
+
 
 function App() {
   return (
@@ -30,6 +33,15 @@ function App() {
             </Route>
             <Route exact path="/Search">
               <Search />
+            </Route>
+            <Route exact path="/DefaultConvo">
+              <Default />
+            </Route>
+            <Route exact path="/DbConvo">
+              <DbConvo />
+            </Route>
+            <Route exact path="/DbConvo/:id">
+              <DbConvo />
             </Route>
             <Route>
               <NotFound />

@@ -1,78 +1,32 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
-import {CardMedia,Card, makeStyles, CardContent, Typography, Button} from '@material-ui/core'
+import Default from './MoreConvos/Default';
+import DbConvo from './MoreConvos/DbConvo';
+import useStyles from './MoreConvos/DefaultStyle';
 
-
-const useStyles = makeStyles({
-  fullCard : {
-    width: '1400px',
-    height: '900px',
-    backgroundColor: "grey",
-    margin: "auto",
-    
-    
-  },
-  cardImage: {
-    objectFit: "cover",
-    backgroundColor: "red",
-    width: "1400px",
-    height: "500px"
-  },
-  insideImage: {
-    
-    
-    display: "flex",
-    justifyContent: "flex-end"
-    
-  },
-  insideButton: { 
-    margin: 20,
-    borderRadius: 8,
-    justifyContent: "center",
-    boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.4)"
-  }
- 
-
-})
 
 function AllConvos(){ 
-  
-  const [current,setCurrent] = useState({});
+  const [compo,setCompo] = useState();
 
-  useEffect(() =>  {
-    if(id !== undefined){
-    axios.get(`/convos/${id}`).then(res => setCurrent(res.data));
-    console.log("made a post request")
-  }
-  },[])
-
-  const classes = useStyles();
   const {id} = useParams();
-  console.log(id);  
- 
+  useEffect(() =>  {
+
+    axios.get(`/convos/${id}`).then(res => {
+      if(res.data === null){
+        setCompo(<Default />)
+      }else {
+        setCompo(<DbConvo />)
+      }
+    })
+  },[])
+  
+  const classes = useStyles();
+  
+  
   return(
     <div className={classes.wrapper}>
-      <Card className={classes.fullCard}>
-        
-        <CardMedia className={classes.cardImage} image="https://source.unsplash.com/1400x500">
-          <div className={classes.insideImage}>
-            <Button className={classes.insideButton} variant="contained" color="secondary">
-              Join Conversation
-            </Button>
-
-          </div>
-        </CardMedia>
-        <CardContent>
-          <Typography variant="h4">
-            Title
-          </Typography>
-          <Typography variant="body1">
-          Pellentesque efficitur eros nec urna rhoncus eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi a vulputate lacus, nec porttitor lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent non nisl nulla. Phasellus semper elit lectus, ac efficitur sapien interdum vel. Quisque cursus magna vitae placerat convallis. Sed ut posuere urna, sit amet cursus lacus. Ut in urna vitae orci tincidunt tempor et non arcu. Vestibulum pretium ex non quam molestie, eget sagittis enim convallis. Duis dui massa, sodales vitae.
-          Pellentesque efficitur eros nec urna rhoncus eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Morbi a vulputate lacus, nec porttitor lectus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent non nisl nulla. Phasellus semper elit lectus, ac efficitur sapien interdum vel. Quisque cursus magna vitae placerat convallis. Sed ut posuere urna, sit amet cursus lacus. Ut in urna vitae orci tincidunt tempor et non arcu.
-          </Typography>
-        </CardContent>
-      </Card>
+      {compo}
     </div>
 
   )

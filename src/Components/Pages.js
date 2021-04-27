@@ -22,6 +22,16 @@ const sitePages = [
       path: '/conversations'
     },
     {
+      title: 'Default Convo',
+      icon: <MessageOutlinedIcon color="secondary" />,
+      path: '/DefaultConvo'
+    },
+    {
+      title: 'API Convo',
+      icon: <MessageOutlinedIcon color="secondary" />,
+      path: '/DbConvo'
+    },
+    {
       title: 'Friends',
       icon: <GroupOutlinedIcon color="secondary" />,
       path: '/friends'
