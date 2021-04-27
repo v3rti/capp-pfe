@@ -12,14 +12,18 @@ function AllConvos(){
 
   const {id} = useParams();
   useEffect(() =>  {
-
+    console.log(id);
+    if(id !== undefined){
     axios.get(`/convos/${id}`).then(res => {
       if(res.data === null){
         setCompo(<Default />)
       }else {
         setCompo(<DbConvo />)
       }
-    })
+    })}
+    else{
+      setCompo("Welcome to convo page");
+    }
   },[])
   
   
