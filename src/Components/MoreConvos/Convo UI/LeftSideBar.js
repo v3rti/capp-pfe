@@ -41,6 +41,16 @@ function LeftSideBar(){
             subheader={<Typography variant="body2" color="textSecondary" noWrap>Random User: Js goes brrr </Typography>}
             />
         </Card>
+        <Card className={classes.convoCard}>
+            <CardHeader avatar={
+              <Avatar className={classes.avatarRan}>
+                R
+              </Avatar>
+            }
+            title={<Typography variant="body2">Coders Convo</Typography>}
+            subheader={<Typography variant="body2" color="textSecondary" noWrap>Random User: Js goes brrr </Typography>}
+            />
+        </Card>
     </div>
   )
 }

@@ -29,6 +29,13 @@ const useStyles = makeStyles({
   avatarColorTest: {
     backgroundColor: "green"
   },
+  avatarColorTest: {
+    backgroundColor: "green"
+  },
+  avatarRan: {
+    backgroundColor: "skyblue"
+  },
+
   msgWrapper: {
     
     width:"fit-content"
