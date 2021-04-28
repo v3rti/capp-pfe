@@ -9,7 +9,8 @@ const useStyles = makeStyles({
   paperEx: {
     width: 1300,
     height: 800,
-    backgroundColor: "#B0B0B0"
+    backgroundColor: "#D8D8D8",
+    
   },
   paperSecond: {
     width: 320,
@@ -26,7 +27,28 @@ const useStyles = makeStyles({
   },
   avatarColorTest: {
     backgroundColor: "green"
+  },
+  msgWrapper: {
+    
+    width:"fit-content"
+  },
+  
+  msgPaper: {
+    paddingRight: "4px",
+    marginTop: "20px",
+    marginLeft: "20px",
+    height: "auto",
+    maxWidth: "500px",
+    width: "auto",
+    borderRadius: "20px",
+    marginBottom: "20px"
+  },
+  
+  textParagraph: {
+    padding: "5px",
+    marginLeft: "10px"
   }
+  
 })
 
 export default useStyles;
