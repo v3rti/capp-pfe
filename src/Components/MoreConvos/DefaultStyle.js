@@ -4,12 +4,12 @@ const useStyles = makeStyles({
   fullCard : {
     width: '1400px',
     height: '750px',
-    backgroundColor: "grey",
+    backgroundColor: "#D8D8D8",
     margin: "auto",
   },
   cardImage: {
     objectFit: "cover",
-    backgroundColor: "red",
+    
     width: "1400px",
     height: "500px"
   },

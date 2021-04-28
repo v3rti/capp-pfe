@@ -4,7 +4,8 @@ import {makeStyles} from '@material-ui/core';
 const useStyles = makeStyles({
   papersWrapper: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    position: "relative"
   },
   paperEx: {
     width: 1300,
@@ -47,6 +48,21 @@ const useStyles = makeStyles({
   textParagraph: {
     padding: "5px",
     marginLeft: "10px"
+  },
+  anotherWrapper:{
+    minWidth: "0px",
+    minHeight: "0px",
+    backgroundColor: "red",
+  },
+  usertextField: {
+    position: "absolute",
+    bottom: 0,
+    left: 5,
+    width: 1300, 
+  },
+  actualTextField: {
+    
+    backgroundColor: "#F5F5F5"
   }
   
 })
