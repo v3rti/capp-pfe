@@ -100,6 +100,7 @@ function NewNav({children}) {
           <IconButton className={classes.avaIcon}>
           <Avatar
           button 
+          onClick={() => history.push('/Login')}
           className={classes.avatar}
            >
              M
