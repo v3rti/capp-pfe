@@ -1,6 +1,7 @@
 import { TextField, makeStyles, Button, Typography } from '@material-ui/core';
-import React from 'react';
+import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
+import MyContext from './ContextTest/MyContext';
 
 const useStyles = makeStyles({
   wrapper:{
@@ -35,14 +36,20 @@ function Login(){
 
   const classes = useStyles();
   const history = useHistory();
-
+  const {isLoggedIn} = useContext(MyContext);
+  let rightPage;
   function handleFormSubmit(e){
     e.preventDefault();
+  }
+  if(isLoggedIn){
+    rightPage = "Welcome user";
+  }else{
+    rightPage = "Please Login first"
   }
 
   return(
   <div className={classes.wrapper}>
-
+    <h1>Almost</h1>
     <Typography className={classes.textTitle} variant="h3">
       Login And Chat now!
     </Typography>

@@ -6,6 +6,7 @@ import HomePage from './Components/HomePage';
 import Friends from './Components/Friends';
 import Search from './Components/Search';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import GlobalState from './Components/ContextTest/GlobalState';
 
 import Login from './Components/Login';
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <div >
       <BrowserRouter>
+      <GlobalState>
       <NewNav>
         <Switch>
             <Route exact path="/">
@@ -41,6 +43,7 @@ function App() {
             </Route>
         </Switch>
         </NewNav>
+        </GlobalState>
       </BrowserRouter>
     </div>
   );

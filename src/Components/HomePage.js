@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
+import MyContext from './ContextTest/MyContext';
+import Login from './Login';
 
 const useStyles = makeStyles({
   cardsWrapper: {
@@ -41,16 +43,26 @@ function HomePage(){
   const classes = useStyles();
   const [convos,setConvos] = useState([]);
   const history = useHistory();
-
+  const {isLoggedIn, setIsLoggedIn} = useContext(MyContext);
+  let rightPage;
   useEffect(() => {
     fetch('/convos')
     .then(res => res.json())
     .then(data => setConvos(data));
   },[])
 
-  return( 
+  if(isLoggedIn){
+    rightPage = "Welcome user";
+  }else{
+    rightPage = "Please Login first"
+  }
+
+
+  return(
 
     <div className={classes.cardsWrapper}>
+      <h1>{rightPage}</h1>
+      <button onClick={() => setIsLoggedIn(true)}>Hi</button>
       {convos.map(card => {
         return (
         
