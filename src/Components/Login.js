@@ -49,7 +49,7 @@ function Login(){
 
   return(
   <div className={classes.wrapper}>
-    <h1>Almost</h1>
+    <h1>{rightPage}</h1>
     <Typography className={classes.textTitle} variant="h3">
       Login And Chat now!
     </Typography>
