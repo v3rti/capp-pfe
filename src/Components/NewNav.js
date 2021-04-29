@@ -1,5 +1,5 @@
-import React from 'react'
-import {IconButton, makeStyles} from '@material-ui/core'
+import React, {useContext} from 'react'
+import {Button, IconButton, makeStyles} from '@material-ui/core'
 import Pages from './Pages';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +7,7 @@ import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
 import {AppBar, Toolbar} from '@material-ui/core'
 import {Avatar} from '@material-ui/core';
 import {useHistory, useLocation} from 'react-router-dom';
-
+import MyContext from './ContextTest/MyContext';
 
 
 const drawerWidth = 240;
@@ -61,6 +61,8 @@ function NewNav({children}) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+  const {isLoggedIn, setIsLoggedIn} = useContext(MyContext);
+  let loginStatus;
 
   const handleLink = (item) => {
     history.push(item.path);
@@ -75,7 +77,7 @@ function NewNav({children}) {
     }
   }
 
-  
+  isLoggedIn ? loginStatus = "Log out" : loginStatus = "Log in"
 
 
   return (
@@ -92,20 +94,21 @@ function NewNav({children}) {
           <Typography className={classes.date}>
               New day, new opportunity
           </Typography>
-          <Typography
-          end
-          >
-            Logged in as
-          </Typography>
+          
+          {isLoggedIn ? 
+          <>
+          <Typography end>My Profile</Typography>  
           <IconButton className={classes.avaIcon}>
           <Avatar
           button 
-          onClick={() => history.push('/Login')}
+          onClick={() => setIsLoggedIn(!isLoggedIn)}
           className={classes.avatar}
            >
              M
            </Avatar>
            </IconButton>
+           </>
+           : <Button variant="contained" onClick={() => history.push('/Login')}>Log in</Button>}
         </Toolbar>
       </AppBar>
 

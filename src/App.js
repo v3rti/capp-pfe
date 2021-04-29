@@ -7,8 +7,7 @@ import Friends from './Components/Friends';
 import Search from './Components/Search';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GlobalState from './Components/ContextTest/GlobalState';
-
-import Login from './Components/Login';
+import Login from './LoginPage/Login';
 
 function App() {
   return (
@@ -38,6 +37,7 @@ function App() {
             <Route exact path="/Login">
               <Login />
             </Route>
+           
             <Route>
               <NotFound />
             </Route>

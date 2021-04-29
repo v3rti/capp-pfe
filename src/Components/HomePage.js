@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@
 import {makeStyles} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import MyContext from './ContextTest/MyContext';
-import Login from './Login';
+import Login from '../LoginPage/Login';
 
 const useStyles = makeStyles({
   cardsWrapper: {
@@ -61,11 +61,9 @@ function HomePage(){
   return(
 
     <div className={classes.cardsWrapper}>
-      <h1>{rightPage}</h1>
-      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>Hi</button>
+      
       {convos.map(card => {
         return (
-        
         <Card className={classes.cardExample}>
           <CardMedia className={classes.cardMediaImage} image={card.image} />
           <CardContent>
