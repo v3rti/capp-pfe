@@ -1,48 +1,57 @@
-import NewNav from './Components/NewNav';
+import NewNav from './Components/Layout/NewNav';
 import CreateConvo from './Components/CreateConvo';
 import AllConvos from './Components/AllConvos';
 import NotFound from './Components/NotFound';
 import HomePage from './Components/HomePage';
 import Friends from './Components/Friends';
 import Search from './Components/Search';
+import Login from './LoginPage/Login';
+import DefaultLayout from './Components/Layout/DefaultLayout';
+import NoAccLayout from './Components/Layout/NoAccLay';
+
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GlobalState from './Components/ContextTest/GlobalState';
-import Login from './LoginPage/Login';
+
 
 function App() {
   return (
     <div >
       <BrowserRouter>
-      <GlobalState>
-      <NewNav>
-        <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route exact path="/create">
-              <CreateConvo />
-            </Route>
-            <Route exact path="/conversations/">
-              <AllConvos />
-            </Route>
-            <Route exact path="/conversations/:id">
-              <AllConvos />
-            </Route>
-            <Route exact path="/friends">
-              <Friends />
-            </Route>
-            <Route exact path="/Search">
-              <Search />
-            </Route>
-            <Route exact path="/Login">
-              <Login />
-            </Route>
-           
-            <Route>
-              <NotFound />
-            </Route>
-        </Switch>
-        </NewNav>
+        <GlobalState>
+          <NewNav>
+            <Switch>
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
+                <Route exact path="/create">
+                  <CreateConvo />
+                </Route>
+                <Route exact path="/conversations/">
+                  <AllConvos />
+                </Route>
+                <Route exact path="/conversations/:id">
+                  <AllConvos />
+                </Route>
+                <Route exact path="/friends">
+                  <Friends />
+                </Route>
+                <Route exact path="/Search">
+                  <Search />
+                </Route>
+                <Route exact path="/Login">
+                  <Login />
+                </Route>
+                <Route exact path="/deflayout">
+                  <DefaultLayout />
+                </Route>
+                <Route exact path="/noacc">
+                  <NoAccLayout />
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+            </Switch>
+          </NewNav>
         </GlobalState>
       </BrowserRouter>
     </div>

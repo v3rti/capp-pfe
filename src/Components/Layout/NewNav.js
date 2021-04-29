@@ -1,67 +1,23 @@
 import React, {useContext} from 'react'
 import {Button, IconButton, makeStyles} from '@material-ui/core'
-import Pages from './Pages';
+import Pages from '../Pages';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import {List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core'
 import {AppBar, Toolbar} from '@material-ui/core'
 import {Avatar} from '@material-ui/core';
 import {useHistory, useLocation} from 'react-router-dom';
-import MyContext from './ContextTest/MyContext';
+import MyContext from '../ContextTest/MyContext';
+import useStyles from './Styles';
 
-const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => {
-  return {
-    page: {
-      background: '#f9f9f9',
-      width: '100%',
-      padding: theme.spacing(3)
-    },
-    drawer: {
-      width: drawerWidth,
-    },
-    drawerPaper: {
-      width: drawerWidth
-    },
-    root: {
-      display: "flex"
-    },
-    active: {
-      background: '#f4f4f4'
-    },
-    title: {
-      padding: theme.spacing(3)
-    },
-    appbar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      
-    },
-    toolbar: theme.mixins.toolbar,
-    date: {
-      flexGrow: 1
-    },
-    avatar: {
-      backgroundColor: "White",
-      fontSize: 18,
-      color: "#ff4081"
-    },
-    currentPage: {
-      background: "#E8E8E8"
-    },
-    avaIcon: {
-      marginLeft: 5
-    }
-  }
-})
 
-function NewNav({children}) {
+function DefaultLayout({children}) {
   
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
   const {isLoggedIn, setIsLoggedIn} = useContext(MyContext);
-  let loginStatus;
 
   const handleLink = (item) => {
     history.push(item.path);
@@ -75,8 +31,6 @@ function NewNav({children}) {
       return null
     }
   }
-
-  isLoggedIn ? loginStatus = "Log out" : loginStatus = "Log in"
 
 
   return (
@@ -113,7 +67,7 @@ function NewNav({children}) {
 
       {/* side drawer */}
 
-      <Drawer 
+      {isLoggedIn ? <Drawer 
       className={classes.drawer}
       variant="permanent"
       anchor="left"
@@ -143,7 +97,7 @@ function NewNav({children}) {
           })}
         </List>
 
-      </Drawer>
+      </Drawer> : null}
 
       <div className={classes.page}>
         <div className={classes.toolbar}></div>
@@ -153,4 +107,4 @@ function NewNav({children}) {
   )
 }
 
-export default NewNav
+export default DefaultLayout
