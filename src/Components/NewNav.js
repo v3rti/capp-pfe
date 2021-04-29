@@ -9,7 +9,6 @@ import {Avatar} from '@material-ui/core';
 import {useHistory, useLocation} from 'react-router-dom';
 import MyContext from './ContextTest/MyContext';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => {
