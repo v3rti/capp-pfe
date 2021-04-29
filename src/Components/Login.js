@@ -49,6 +49,7 @@ function Login(){
 
   return(
   <div className={classes.wrapper}>
+    {console.log(localStorage.getItem('loginStatus'))}
     <h1>{rightPage}</h1>
     <Typography className={classes.textTitle} variant="h3">
       Login And Chat now!

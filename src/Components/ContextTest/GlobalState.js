@@ -6,7 +6,7 @@ function GlobalState(props){
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(localStorage.getItem('loginStatus'));
+    setIsLoggedIn(localStorage.getItem('loginStatus') === "true");
   }, [])
 
   useEffect(() => {

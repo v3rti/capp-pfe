@@ -62,7 +62,7 @@ function HomePage(){
 
     <div className={classes.cardsWrapper}>
       <h1>{rightPage}</h1>
-      <button onClick={() => setIsLoggedIn(true)}>Hi</button>
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>Hi</button>
       {convos.map(card => {
         return (
         
