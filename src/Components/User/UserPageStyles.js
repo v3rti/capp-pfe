@@ -47,7 +47,6 @@ const useStyles = makeStyles({
     left: "1100px",
     borderRadius: "10px"
   }
-
 });
 
 
