@@ -1,8 +1,9 @@
 import { Button, Checkbox, FormControlLabel, TextField, Typography } from '@material-ui/core';
 import {Alert, AlertTitle} from '@material-ui/lab/';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import useStyles from './Styles';
 import {useHistory} from 'react-router-dom';
+import MyContext from '../ContextTest/MyContext';
 
 
 function Signup(){
@@ -15,6 +16,8 @@ function Signup(){
   const [alert, setAlert] = useState(false);
   const [formErrors, setErrors] = useState(false);
   const history = useHistory();
+  const {setIsLoggedIn} = useContext(MyContext);
+
 
   async function handleSignup(e){
     e.preventDefault();
@@ -25,7 +28,6 @@ function Signup(){
       setErrors(true);
     }
     else {
-      setAlert(true);
       await fetch('/users', {
         method: "POST",
         headers: {
@@ -44,7 +46,12 @@ function Signup(){
       setUsername("");
       setFullName("");
       setEmail("");
-      setTimeout(() => setAlert(false), 5000)
+      setTimeout(() => setIsLoggedIn(true),1000);
+      setTimeout(() => {
+        setAlert(false)
+        history.push('/');
+      }, 5000);
+      
     }
 
     
@@ -54,8 +61,8 @@ function Signup(){
   <div>
     {alert ?<Alert className={classes.notif} severity="success">
             <AlertTitle>Account Created Successfully</AlertTitle>
-            Your Conversation is now Available — <strong className={classes.redirectMessage} color="secondary" onClick={() => history.push('/')} >
-                check it out!
+            What next? Join a conversation! — <strong className={classes.redirectMessage} color="secondary" onClick={() => history.push('/')} >
+                Check Conversations
               </strong>
             
     </Alert> : null}
