@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardContent, CardMedia, Paper, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import React from 'react';
 import useStyles from './UserPageStyles';
 
@@ -9,11 +9,10 @@ function UserPage(){
 
   return(
     <div>
-      
         <Card className={classes.mainCard}>
           <CardMedia className={classes.cardImage} image="https://source.unsplash.com/1400x300/?nature,water" />
           <CardContent className={classes.contentParent}>
-            <Avatar className={classes.avatarProfile} src="https://previews.123rf.com/images/ervinm/ervinm1709/ervinm170900008/86900230-wolf-face-vector-illustration.jpg" />
+            <Avatar className={classes.avatarProfile} src="https://pbs.twimg.com/profile_images/1305913154787061765/_rJJQtsp_400x400.jpg" />
             <Typography variant="h5" className={classes.fullName}>
               User Full Name ?
             </Typography>
@@ -28,7 +27,6 @@ function UserPage(){
             </Button>
           </CardContent>
         </Card>
-      
     </div>
   )
 }

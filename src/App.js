@@ -38,16 +38,16 @@ function App() {
                 <Route exact path="/friends">
                   <Friends />
                 </Route>
-                <Route exact path="/Search">
+                <Route exact path="/search">
                   <Search />
                 </Route>
-                <Route exact path="/Login">
+                <Route exact path="/login">
                   <Login />
                 </Route>
-                <Route exact path="/Signup">
+                <Route exact path="/signup">
                   <Signup />
                 </Route>
-                <Route exact path="/Logout">
+                <Route exact path="/logout">
                   <Logout />
                 </Route>
                 <Route exact path="/deflayout">

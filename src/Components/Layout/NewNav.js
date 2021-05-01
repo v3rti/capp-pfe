@@ -62,8 +62,8 @@ function DefaultLayout({children}) {
            </IconButton>
            </>
            : <div>
-             <Button className={classes.buttonMargin} variant="contained" onClick={() => history.push('/Login')}>Log in</Button>
-             <Button variant="contained" onClick={() => history.push('/Signup')}>Sign up</Button>
+             <Button className={classes.buttonMargin} variant="contained" onClick={() => history.push('/login')}>Log in</Button>
+             <Button variant="contained" onClick={() => history.push('/signup')}>Sign up</Button>
              </div>}
         </Toolbar>
       </AppBar>

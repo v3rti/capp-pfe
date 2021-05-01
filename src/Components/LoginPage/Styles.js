@@ -16,7 +16,9 @@ const useStyles = makeStyles({
     width: "auto"
   },
   loginButton: {
-    margin:"40px 100px"
+    margin:"40px 100px",
+    paddingTop:"10px",
+    paddingBottom: "10px"
   },
   loginInputs: {
     margin: "20px 100px"
@@ -31,7 +33,8 @@ const useStyles = makeStyles({
     flexDirection:"column",
     marginTop: "40px",
     padding: "20px",
-    width: "auto"
+    width: "auto",
+    
   },
   signupWrapper: {
     width: "800px",
@@ -42,6 +45,18 @@ const useStyles = makeStyles({
   },
   checkBox: {
     margin:"0 100px"
+  },
+  redirectMessage: {
+    cursor: "pointer"
+  },
+  notif: {
+    width: "800px",
+    margin: "0 auto",
+    marginBottom: "20px"
+  },
+  errorMessage: {
+    color: "red",
+    margin: "0 100px"
   }
 
 });
