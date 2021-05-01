@@ -16,20 +16,20 @@ function Signup(){
   const [alert, setAlert] = useState(false);
   const [formErrors, setErrors] = useState(false);
   const history = useHistory();
-  const {setIsLoggedIn} = useContext(MyContext);
+  const {isLoggedIn,setIsLoggedIn} = useContext(MyContext);
   const [signedup,setSignedup] = useState(false);
   let [counter,setCounter] = useState(5);
 
 
   async function handleSignup(e){
     e.preventDefault();
-    setSignedup(false);
     setErrors(false);
 
     if(username === "" || email === "" || fullName === "" || password === ""){
       setErrors(true);
     }
     else {
+      
       await fetch('/users', {
         method: "POST",
         headers: {
@@ -42,7 +42,6 @@ function Signup(){
           fullName
         })
       })
-      
       setErrors(false);
       setAlert(true);
       setPassword("");
@@ -52,6 +51,7 @@ function Signup(){
       let intervTest = setInterval(() => {
         if(counter !== 0){
           setCounter(counter--);
+          
         }
         else{
           clearInterval(intervTest);
@@ -62,8 +62,7 @@ function Signup(){
 
       setTimeout(() => {
         setIsLoggedIn(true);
-        setSignedup(true);
-      },1000);
+      },500);
       
       
     }
@@ -80,7 +79,7 @@ function Signup(){
               </strong>
             
     </Alert> : null}
-    {!signedup ? 
+    {!isLoggedIn ? 
     <div className={classes.signupWrapper}>
       <Typography className={classes.textTitle} variant="h3">
         Sign up And Join Convos Now!
