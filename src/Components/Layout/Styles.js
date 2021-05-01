@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => {
     },
     avaIcon: {
       marginLeft: 5
+    },
+    buttonMargin: {
+      marginRight: 10
     }
   }
 })

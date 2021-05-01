@@ -16,16 +16,32 @@ const useStyles = makeStyles({
     width: "auto"
   },
   loginButton: {
-    margin:"50px 100px"
+    margin:"40px 100px"
   },
   loginInputs: {
     margin: "20px 100px"
   },
   textTitle: {
-  display: "flex",
-   justifyContent: "center",
-   marginTop: "50px"
-    
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "50px"
+  },
+  signUpForm: {
+    display: "flex",
+    flexDirection:"column",
+    marginTop: "40px",
+    padding: "20px",
+    width: "auto"
+  },
+  signupWrapper: {
+    width: "800px",
+    margin: "auto",
+    height: "800px",
+    backgroundColor: "#FFFAFA",
+    border: "0.5px solid black"
+  },
+  checkBox: {
+    margin:"0 100px"
   }
 
 });

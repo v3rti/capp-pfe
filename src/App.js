@@ -5,9 +5,11 @@ import NotFound from './Components/NotFound';
 import HomePage from './Components/HomePage';
 import Friends from './Components/Friends';
 import Search from './Components/Search';
-import Login from './LoginPage/Login';
+import Login from './Components/LoginPage/Login';
 import DefaultLayout from './Components/Layout/DefaultLayout';
 import NoAccLayout from './Components/Layout/NoAccLay';
+import Signup from './Components/LoginPage/Signup';
+import Logout from './Components/LoginPage/Logout';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GlobalState from './Components/ContextTest/GlobalState';
@@ -40,6 +42,12 @@ function App() {
                 </Route>
                 <Route exact path="/Login">
                   <Login />
+                </Route>
+                <Route exact path="/Signup">
+                  <Signup />
+                </Route>
+                <Route exact path="/Logout">
+                  <Logout />
                 </Route>
                 <Route exact path="/deflayout">
                   <DefaultLayout />

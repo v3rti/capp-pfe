@@ -1,7 +1,7 @@
 import { TextField,Button, Typography } from '@material-ui/core';
 import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import MyContext from '../Components/ContextTest/MyContext';
+import MyContext from '../ContextTest/MyContext';
 import useStyles from './Styles';
 
 

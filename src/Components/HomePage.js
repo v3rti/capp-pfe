@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@
 import {makeStyles} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import MyContext from './ContextTest/MyContext';
-import Login from '../LoginPage/Login';
+import Login from './LoginPage/Login';
 
 const useStyles = makeStyles({
   cardsWrapper: {

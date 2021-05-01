@@ -61,7 +61,10 @@ function DefaultLayout({children}) {
            </Avatar>
            </IconButton>
            </>
-           : <Button variant="contained" onClick={() => history.push('/Login')}>Log in</Button>}
+           : <div>
+             <Button className={classes.buttonMargin} variant="contained" onClick={() => history.push('/Login')}>Log in</Button>
+             <Button variant="contained" onClick={() => history.push('/Signup')}>Sign up</Button>
+             </div>}
         </Toolbar>
       </AppBar>
 
