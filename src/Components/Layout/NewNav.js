@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {Button, IconButton, makeStyles} from '@material-ui/core'
+import {Button, IconButton} from '@material-ui/core'
 import Pages from '../Pages';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
@@ -54,7 +54,7 @@ function DefaultLayout({children}) {
           <IconButton className={classes.avaIcon}>
           <Avatar
           button 
-          onClick={() => setIsLoggedIn(!isLoggedIn)}
+          onClick={() => history.push('/user')}
           className={classes.avatar}
            >
              M
@@ -86,8 +86,9 @@ function DefaultLayout({children}) {
 
         {/* list / links */}
 
-        <List>
-          {Pages.map(item => {
+        <List className={classes.drawerListItem}>
+          {Pages.map((item,indx) => {
+            if(indx !== Pages.length - 1){
             return <ListItem button
             className={handleCurrentPage(item)}
             onClick={() => handleLink(item)}
@@ -97,6 +98,18 @@ function DefaultLayout({children}) {
                 </ListItemIcon>
                 <ListItemText primary={item.title} />
             </ListItem>
+            } else {
+              return <ListItem  
+              button
+              className={handleCurrentPage(item)}
+              onClick={() => handleLink(item)}
+              >
+                <ListItemIcon>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+            </ListItem>
+            }
           })}
         </List>
 

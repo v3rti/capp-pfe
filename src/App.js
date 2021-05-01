@@ -10,6 +10,7 @@ import DefaultLayout from './Components/Layout/DefaultLayout';
 import NoAccLayout from './Components/Layout/NoAccLay';
 import Signup from './Components/LoginPage/Signup';
 import Logout from './Components/LoginPage/Logout';
+import UserPage from './Components/User/UserPage';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GlobalState from './Components/ContextTest/GlobalState';
@@ -54,6 +55,9 @@ function App() {
                 </Route>
                 <Route exact path="/noacc">
                   <NoAccLayout />
+                </Route>
+                <Route exact path="/user">
+                  <UserPage />
                 </Route>
                 <Route>
                   <NotFound />
