@@ -1,0 +1,42 @@
+[33mbcab1e5[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m showing the drawer after 1000ms when signing up, after 5000ms the user will automatically get redirected into the home page
+[33m3fda1ef[m added a signup form that connects into the server, not the db, added a small form validation to it too.
+[33md94eda9[m forgot to mention: made the log out page and button, sign up and log in both button render conditionally (user login state)
+[33m84f4f6d[m designed the user profile page (spent time on css)
+[33m3612356[m made a signup form sample, added a log out list in tha drawer, works fine
+[33mc7cc789[m started to add different page render when user is not logged in (for now: no drawer)
+[33ma942aee[m no change, forgot to mention on the last commit that i added the ability to log out
+[33mb38dcd2[m added the ability to log in, not related to back end but remembers the state and renders the right login page based on the state of isLoggedIn
+[33m82ac4d7[m fixed the state to be the same across all components
+[33md9037ad[m successfully added the login state to the localStorage, now all page share the same state of login even when refreshing (stored in localStorage)
+[33maae67e5[m added few context logic to test out the state
+[33mfe26b48[m added a sample of login page, not working but sends u to home page when submitting, should add global state management library
+[33mb2d016c[m simple color modification
+[33m6c2467c[m positioned the input at the bottom of the paper
+[33m6c891cb[m added second part of the conversation page layout, not yet completed
+[33m5af7241[m added some of the conversation page layout, cleaned and seperated code
+[33m4555afb[m made and configured the special 404 page of /conversations
+[33m4ce9fd1[m figured the logic of conversations (depending on the existing of the url parameters we render the right component) else we render the user conversations he's in
+[33m469d074[m more details button on home page now functionning, thinking of view conversations logic
+[33mcf103f9[m added a new button to swipe into the next convo, not yet functioning
+[33m3cd4117[m finished logic of rendering the right page, too hard took time :p
+[33mfb73931[m added a sample of a layout, not yet configured with the url params
+[33m8b129e2[m started on the layout
+[33mde53a94[m added more logic into rendering convo with id using useEffect
+[33m2da8adb[m added the use effect and the history push when creating a new convo to check it out
+[33mee30a42[m added a new unique id generating system
+[33m7aee949[m added a unique id library to generate id for each convo, added to the backend too to get processed
+[33ma618faf[m added a new search page
+[33m92e1bf8[m added a routing to the link in the alert
+[33mefddc74[m alert message when creatign a convo, dissappears with a timeout
+[33m80bcc8c[m added axios, successfully configured convos to go into an external db
+[33m1767b0d[m added backend server serving cards json file
+[33m3fba220[m avatar now click through
+[33m2fd7a2f[m modified nav and avatar colors
+[33m2dc29d0[m create a simple form to add new convos, to link with mongodb next
+[33m880c535[m moved the cards into an online json files so we can fetch it and set it into a state
+[33m69c647b[m added routing for pages, added 2 more pages, added cards for the home page for testing, styled the cards and both pages, added more icons
+[33mdf9dc9d[m added a nav and sidebar
+[33m32fa5b2[m added a navbar
+[33m559fec8[m[33m ([m[1;31morigin/navbar[m[33m, [m[1;32mnavbar[m[33m)[m added material ui
+[33m0b4458a[m initialized files (clean up)
+[33m2a1e549[m Initialize project using Create React App

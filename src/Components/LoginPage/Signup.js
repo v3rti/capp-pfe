@@ -17,11 +17,13 @@ function Signup(){
   const [formErrors, setErrors] = useState(false);
   const history = useHistory();
   const {setIsLoggedIn} = useContext(MyContext);
+  const [signedup,setSignedup] = useState(false);
+  let [counter,setCounter] = useState(5);
 
 
   async function handleSignup(e){
     e.preventDefault();
-    
+    setSignedup(false);
     setErrors(false);
 
     if(username === "" || email === "" || fullName === "" || password === ""){
@@ -40,17 +42,29 @@ function Signup(){
           fullName
         })
       })
+      
       setErrors(false);
       setAlert(true);
       setPassword("");
       setUsername("");
       setFullName("");
       setEmail("");
-      setTimeout(() => setIsLoggedIn(true),1000);
+      let intervTest = setInterval(() => {
+        if(counter !== 0){
+          setCounter(counter--);
+        }
+        else{
+          clearInterval(intervTest);
+          setAlert(false)
+          history.push('/');
+        }
+      },1000)
+
       setTimeout(() => {
-        setAlert(false)
-        history.push('/');
-      }, 5000);
+        setIsLoggedIn(true);
+        setSignedup(true);
+      },1000);
+      
       
     }
 
@@ -61,12 +75,12 @@ function Signup(){
   <div>
     {alert ?<Alert className={classes.notif} severity="success">
             <AlertTitle>Account Created Successfully</AlertTitle>
-            What next? Join a conversation! — <strong className={classes.redirectMessage} color="secondary" onClick={() => history.push('/')} >
+            You'll be redirected in {counter} — <strong className={classes.redirectMessage} color="secondary" onClick={() => history.push('/')} >
                 Check Conversations
               </strong>
             
     </Alert> : null}
-
+    {!signedup ? 
     <div className={classes.signupWrapper}>
       <Typography className={classes.textTitle} variant="h3">
         Sign up And Join Convos Now!
@@ -86,6 +100,7 @@ function Signup(){
           </Button>
       </form>
     </div>
+    : null}
   </div>
 
 
