@@ -14,16 +14,20 @@ function Signup(){
   const [password,setPassword] = useState("");
   const [fullName,setFullName] = useState("");
   const [alert, setAlert] = useState(false);
-  const [formErrors, setErrors] = useState(false);
+
   const history = useHistory();
   const {isLoggedIn,setIsLoggedIn} = useContext(MyContext);
-  const [errorsText,setErrorsText] = useState("");
+
   let [counter,setCounter] = useState(5);
 
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordErrorr] = useState(null);
+  const [usernameError, setUsernameError] = useState(null);
+  const [fullNameError, setFullNameError] = useState(null);
 
   async function handleSignup(e){
     e.preventDefault();
-    setErrors(false);
+    
 
     
      const signingUp = await fetch('/users', {
@@ -40,32 +44,43 @@ function Signup(){
       })
 
       const responseData = await signingUp.json();
-      if(responseData.errorMsg){
-        setErrorsText("Errors Exist")
+      const {errorMsg} = await responseData;
+
+      if(errorMsg){
+        
+        setEmailError(errorMsg.email);
+        setPasswordErrorr(errorMsg.password);
+        setUsernameError(errorMsg.username);
+        setFullNameError(errorMsg.fullName);
+      }else{
+        setEmailError(null);
+        setPasswordErrorr(null);
+        setUsernameError(null);
+        setFullNameError(null);
+        setAlert(true);
+        setPassword("");
+        setUsername("");
+        setFullName("");
+        setEmail("");
+        let intervTest = setInterval(() => {
+          if(counter !== 0){
+            setCounter(counter--);
+            
+          }
+          else{
+            clearInterval(intervTest);
+            setAlert(false)
+            history.push('/');
+          }
+        },1000)
+
+        setTimeout(() => {
+          setIsLoggedIn(true);
+        },500);
       }
+
       
-
-      setErrors(false);
-      setAlert(true);
-      setPassword("");
-      setUsername("");
-      setFullName("");
-      setEmail("");
-      let intervTest = setInterval(() => {
-        if(counter !== 0){
-          setCounter(counter--);
-          
-        }
-        else{
-          clearInterval(intervTest);
-          setAlert(false)
-          history.push('/');
-        }
-      },1000)
-
-      setTimeout(() => {
-        setIsLoggedIn(true);
-      },500);
+      
 
   }
 
@@ -78,7 +93,7 @@ function Signup(){
               </strong>
             
     </Alert> : null}
-    <div className={classes.errorMessage}>{errorsText}</div>
+    
     {!isLoggedIn ? <div className={classes.signupWrapper}>
       <Typography className={classes.textTitle} variant="h3">
         Sign up And Join Convos Now!
@@ -87,9 +102,13 @@ function Signup(){
       <form onSubmit={handleSignup} className={classes.signUpForm}>
           
           <TextField className={classes.loginInputs} variant="outlined" label="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
+          <div className={classes.errorMessage}>{fullNameError}</div>
           <TextField className={classes.loginInputs} variant="outlined" label="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <div className={classes.errorMessage}>{emailError}</div>
           <TextField className={classes.loginInputs} variant="outlined" label="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+          <div className={classes.errorMessage}>{usernameError}</div>
           <TextField type="password" className={classes.loginInputs} variant="outlined" label="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <div className={classes.errorMessage}>{passwordError}</div>
           <FormControlLabel className={classes.checkBox}
           control={<Checkbox name="checkTerms" />}
           label="I agree on the terms blah blah" />
