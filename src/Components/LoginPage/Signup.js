@@ -17,7 +17,7 @@ function Signup(){
   const [formErrors, setErrors] = useState(false);
   const history = useHistory();
   const {isLoggedIn,setIsLoggedIn} = useContext(MyContext);
-  const [signedup,setSignedup] = useState(false);
+  const [errorsText,setErrorsText] = useState("");
   let [counter,setCounter] = useState(5);
 
 
@@ -25,12 +25,8 @@ function Signup(){
     e.preventDefault();
     setErrors(false);
 
-    if(username === "" || email === "" || fullName === "" || password === ""){
-      setErrors(true);
-    }
-    else {
-      
-      await fetch('/users', {
+    
+     const signingUp = await fetch('/users', {
         method: "POST",
         headers: {
           "Content-type": "application/json"
@@ -42,6 +38,13 @@ function Signup(){
           fullName
         })
       })
+
+      const responseData = await signingUp.json();
+      if(responseData.errorMsg){
+        setErrorsText("Errors Exist")
+      }
+      
+
       setErrors(false);
       setAlert(true);
       setPassword("");
@@ -63,11 +66,7 @@ function Signup(){
       setTimeout(() => {
         setIsLoggedIn(true);
       },500);
-      
-      
-    }
 
-    
   }
 
   return(
@@ -79,14 +78,14 @@ function Signup(){
               </strong>
             
     </Alert> : null}
-    {!isLoggedIn ? 
-    <div className={classes.signupWrapper}>
+    <div className={classes.errorMessage}>{errorsText}</div>
+    {!isLoggedIn ? <div className={classes.signupWrapper}>
       <Typography className={classes.textTitle} variant="h3">
         Sign up And Join Convos Now!
       </Typography>
       
       <form onSubmit={handleSignup} className={classes.signUpForm}>
-          {formErrors ? <Typography variant="h5" className={classes.errorMessage}>You need to fill all the forms.</Typography> : null}
+          
           <TextField className={classes.loginInputs} variant="outlined" label="Full Name" value={fullName} onChange={(e) => setFullName(e.target.value)}/>
           <TextField className={classes.loginInputs} variant="outlined" label="Email Address" value={email} onChange={(e) => setEmail(e.target.value)}/>
           <TextField className={classes.loginInputs} variant="outlined" label="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
@@ -101,8 +100,6 @@ function Signup(){
     </div>
     : null}
   </div>
-
-
 )}
 
 
