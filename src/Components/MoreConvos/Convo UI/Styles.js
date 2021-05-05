@@ -11,19 +11,29 @@ const useStyles = makeStyles({
     position: "relative",
     width: 1300,
     height: 800,
-    backgroundColor: "#D8D8D8",
+    backgroundColor: "grey",
     
   },
+  allMessages: {
+    overflowY: "scroll",
+    height: "750px"
+  },
   paperSecond: {
-    marginLeft: "2px",
+    marginLeft: "4px",
     width: 320,
     height: 800,
-    // backgroundColor: "#D0D0D0"
+    backgroundColor: "grey",
+    display: "flex",
+    justifyContent: "center"
   },
   convoCard: {
     height: 70,
-    width: 320,
-    borderBottom: "0.5px black solid"
+    width: 305,
+    borderRadius: "25px",
+    cursor: "pointer",
+    marginBottom: "5px",
+    backgroundColor: "#F5F5F5",
+    display: "flex",
   },
   avatarColor: {
     backgroundColor: "red"
@@ -45,13 +55,15 @@ const useStyles = makeStyles({
   
   msgPaper: {
     paddingRight: "4px",
+    paddingLeft: "4px",
     marginTop: "20px",
     marginLeft: "20px",
     height: "auto",
     maxWidth: "500px",
     width: "auto",
     borderRadius: "20px",
-    marginBottom: "20px"
+    marginBottom: "20px",
+    backgroundColor: "#F5F5F5"
   },
   typingMsgPaper: {
     paddingRight: "4px",
@@ -65,7 +77,8 @@ const useStyles = makeStyles({
   },
   textParagraph: {
     padding: "5px",
-    marginLeft: "10px"
+    marginLeft: "10px",
+    marginRight: "10px"
   },
   
   anotherWrapper:{

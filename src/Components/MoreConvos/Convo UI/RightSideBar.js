@@ -28,7 +28,7 @@ function LeftSideBar(){
               </Avatar>
             }
             title={<Typography variant="body2">Conversation 2</Typography>}
-            subheader={<Typography variant="body2" color="textSecondary" noWrap>Random User: Another message </Typography>}
+            subheader={<Typography className={classes.lastMsg}variant="body2" color="textSecondary" noWrap>Random User: Another message </Typography>}
             />
         </Card>
         <Card className={classes.convoCard}>

@@ -24,8 +24,6 @@ function UserConvo(){
     }
   },[msg])
   
-  
-  
   const handleInputSend = (e) => {
     if(e.key === 'Enter'){
       if(msg.replace(/\s/g, '') !== ""){
@@ -42,7 +40,7 @@ function UserConvo(){
   return(
     <div className={classes.papersWrapper}>
       <Paper id="convoForm" className={classes.paperEx} elevation={3}>
-        
+      <div className={classes.allMessages}>
         <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>Some message in hereSome message in hereSome message in hereSome message in hereSome message in here more text here </Typography>
@@ -63,9 +61,10 @@ function UserConvo(){
             <Typography variant="body1" className={classes.textParagraph}>1WORD</Typography>
         </Paper>
         </div>
+        {/* Messages sent by user displaying from here */}
         {userMsg !== undefined ? userMsg.map(umsg => {
           return <div className={classes.msgWrapper}>
-          <Paper className={classes.typingMsgPaper}>
+          <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>
               {umsg.message}
             </Typography>
@@ -75,13 +74,13 @@ function UserConvo(){
         
         {formMsg}
 
-        <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" />   
-        
+        <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" color="secondary" />   
+      </div>
       </Paper>
 
-      <Paper className={classes.paperSecond} elevation={3}>
+      <div className={classes.paperSecond} >
         <RightSideBar />
-      </Paper>
+      </div>
 
     </div>
   )
