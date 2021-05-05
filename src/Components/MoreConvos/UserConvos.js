@@ -12,6 +12,8 @@ function UserConvo(){
   const [userMsg, setUserMsg] = useState([]);
 
   useEffect(() => {
+    const messagesForms = document.getElementById('messagesForm');
+    messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
     if(msg !== ""){
       setTimeout(() => setFormMsg(<div className={classes.msgWrapper}>
         <Paper className={classes.typingMsgPaper}>
@@ -40,7 +42,7 @@ function UserConvo(){
   return(
     <div className={classes.papersWrapper}>
       <Paper id="convoForm" className={classes.paperEx} elevation={3}>
-      <div className={classes.allMessages}>
+      <div id="messagesForm" className={classes.allMessages}>
         <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>Some message in hereSome message in hereSome message in hereSome message in hereSome message in here more text here </Typography>
