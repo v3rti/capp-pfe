@@ -8,25 +8,30 @@ function UserConvo(){
   
   const classes = useStyles();  
   const [msg, setMsg] = useState("");
-  
+  const [formMsg, setFormMsg] = useState("");
+  const [userMsg, setUserMsg] = useState([]);
+
   useEffect(() => {
     if(msg !== ""){
-      setFormMsg(<div className={classes.msgWrapper}>
-        <Paper className={classes.msgPaper}>
-          <Typography variant="body2" color="textSecondary" className={classes.textParagraph}>user is typing....</Typography>
+      setTimeout(() => setFormMsg(<div className={classes.msgWrapper}>
+        <Paper className={classes.typingMsgPaper}>
+          <Typography variant="body1" color="textSecondary" className={classes.textParagraph}>Someone is typing....</Typography>
         </Paper>
-      </div>)
+      </div>),100)
     }else {
-      setFormMsg();
+      setTimeout(() => setFormMsg(),100)
+      
     }
   },[msg])
   
-  const [formMsg, setFormMsg] = useState();
+  
   
   const handleInputSend = (e) => {
     if(e.key === 'Enter'){
+      if(msg.replace(/\s/g, '') !== ""){
+      setUserMsg([...userMsg, {message: msg, user: "random"}]);
       setMsg("");
-    }
+    }}
   }
 
   const handleInputChange = (e) => {
@@ -58,6 +63,16 @@ function UserConvo(){
             <Typography variant="body1" className={classes.textParagraph}>1WORD</Typography>
         </Paper>
         </div>
+        {userMsg !== undefined ? userMsg.map(umsg => {
+          return <div className={classes.msgWrapper}>
+          <Paper className={classes.typingMsgPaper}>
+            <Typography variant="body1" className={classes.textParagraph}>
+              {umsg.message}
+            </Typography>
+          </Paper>
+        </div>
+        }) : null}
+        
         {formMsg}
 
         <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" />   

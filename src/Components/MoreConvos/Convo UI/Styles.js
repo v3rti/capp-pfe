@@ -53,7 +53,16 @@ const useStyles = makeStyles({
     borderRadius: "20px",
     marginBottom: "20px"
   },
-  
+  typingMsgPaper: {
+    paddingRight: "4px",
+    marginTop: "20px",
+    marginLeft: "20px",
+    height: "auto",
+    maxWidth: "500px",
+    width: "auto",
+    marginBottom: "20px",
+    borderRadius: "50px"
+  },
   textParagraph: {
     padding: "5px",
     marginLeft: "10px"
@@ -72,6 +81,9 @@ const useStyles = makeStyles({
     width: 1300, 
     borderRadius: "10px",
     backgroundColor: "#F5F5F5"
+  },
+  icon: {
+    fontSize: "50px"
   }
   
 })
