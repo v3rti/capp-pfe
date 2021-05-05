@@ -1,17 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Paper, TextField, Typography} from '@material-ui/core';
-
 import useStyles from './Convo UI/Styles';
-import LeftSideBar from './Convo UI/LeftSideBar';
+import RightSideBar from './Convo UI/RightSideBar';
 
 
 function UserConvo(){
   
   const classes = useStyles();  
+  const [msg, setMsg] = useState("");
+  
+  useEffect(() => {
+    if(msg !== ""){
+      setFormMsg(<div className={classes.msgWrapper}>
+        <Paper className={classes.msgPaper}>
+          <Typography variant="body2" color="textSecondary" className={classes.textParagraph}>user is typing....</Typography>
+        </Paper>
+      </div>)
+    }else {
+      setFormMsg();
+    }
+  },[msg])
+  
+  const [formMsg, setFormMsg] = useState();
+  
+  const handleInputSend = (e) => {
+    if(e.key === 'Enter'){
+      setMsg("");
+    }
+  }
 
+  const handleInputChange = (e) => {
+    setMsg(e.target.value);
+  }
+
+ 
   return(
     <div className={classes.papersWrapper}>
-      <Paper className={classes.paperEx} elevation={3}>
+      <Paper id="convoForm" className={classes.paperEx} elevation={3}>
         
         <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
@@ -32,18 +57,15 @@ function UserConvo(){
         <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>1WORD</Typography>
         </Paper>
-        <div className={classes.anotherWrapper}></div>
         </div>
-        <Paper className={classes.usertextField}>
+        {formMsg}
 
-          <TextField className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined">
-            
-          </TextField>
-        </Paper>
+        <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" />   
+        
       </Paper>
 
       <Paper className={classes.paperSecond} elevation={3}>
-        <LeftSideBar />
+        <RightSideBar />
       </Paper>
 
     </div>

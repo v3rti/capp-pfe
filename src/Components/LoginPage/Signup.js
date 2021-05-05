@@ -86,13 +86,14 @@ function Signup(){
 
   return(
   <div>
-    {alert ?<Alert className={classes.notif} severity="success">
+    {alert ?
+    <Alert className={classes.notif} severity="success">
             <AlertTitle>Account Created Successfully</AlertTitle>
             You'll be redirected in {counter} — <strong className={classes.redirectMessage} color="secondary" onClick={() => history.push('/')} >
                 Check Conversations
               </strong>
-            
-    </Alert> : null}
+    </Alert>
+    : null}
     
     {!isLoggedIn ? <div className={classes.signupWrapper}>
       <Typography className={classes.textTitle} variant="h3">

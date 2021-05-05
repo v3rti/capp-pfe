@@ -8,12 +8,14 @@ const useStyles = makeStyles({
     position: "relative"
   },
   paperEx: {
+    position: "relative",
     width: 1300,
     height: 800,
     backgroundColor: "#D8D8D8",
     
   },
   paperSecond: {
+    marginLeft: "2px",
     width: 320,
     height: 800,
     // backgroundColor: "#D0D0D0"
@@ -56,19 +58,19 @@ const useStyles = makeStyles({
     padding: "5px",
     marginLeft: "10px"
   },
+  
   anotherWrapper:{
     minWidth: "0px",
     minHeight: "0px",
     backgroundColor: "red",
   },
-  usertextField: {
+  
+  actualTextField: {
     position: "absolute",
     bottom: 0,
-    left: 5,
+    left: 0,
     width: 1300, 
-  },
-  actualTextField: {
-    
+    borderRadius: "10px",
     backgroundColor: "#F5F5F5"
   }
   
