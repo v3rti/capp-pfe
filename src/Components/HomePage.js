@@ -40,6 +40,9 @@ const useStyles = makeStyles({
 
 function HomePage(){
 
+  const [cookies,setCookies] = useState();
+
+
   const classes = useStyles();
   const [convos,setConvos] = useState([]);
   const history = useHistory();

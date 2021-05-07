@@ -2,21 +2,23 @@ import { TextField,Button, Typography } from '@material-ui/core';
 import React, {useContext, useState} from 'react';
 import MyContext from '../ContextTest/MyContext';
 import useStyles from './Styles';
-
+import Cookies from 'js-cookie';
 
 function LoginForm(){ 
 
   const classes = useStyles();
-  const {isLoggedIn,setIsLoggedIn} = useContext(MyContext);
+  const {isLoggedIn,setIsLoggedIn,setCurrentUser,currentUser} = useContext(MyContext);
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [statusUwu, setStatusUwu] = useState("");  
+  const [cookies,setCookies] = useState("");
 
-  function handleFormSubmit(e){
+
+  async function handleFormSubmit(e){
     e.preventDefault();
-    // setIsLoggedIn(true);
-    fetch('/users/login', {
-      method: "POST",
+    
+    const res = await fetch('/users/login', {
+      method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
@@ -24,7 +26,17 @@ function LoginForm(){
         email,
         password
       })
-    }).then(res => console.log(res.status))
+    })
+
+    if(res.status === 200){
+        setIsLoggedIn(true);
+        
+    }else{
+        setIsLoggedIn(false)
+    }
+    
+    
+    
   }
 
  

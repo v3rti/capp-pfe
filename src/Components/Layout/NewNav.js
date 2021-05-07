@@ -17,7 +17,7 @@ function DefaultLayout({children}) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const {isLoggedIn, setIsLoggedIn} = useContext(MyContext);
+  const {isLoggedIn, setIsLoggedIn,currentUser} = useContext(MyContext);
 
   const handleLink = (item) => {
     history.push(item.path);
@@ -50,7 +50,7 @@ function DefaultLayout({children}) {
           
           {isLoggedIn ? 
           <>
-          <Typography end>My Profile</Typography>  
+          <Typography end>{currentUser.fullName}</Typography>  
           <IconButton className={classes.avaIcon}>
           <Avatar
           button 
