@@ -14,6 +14,7 @@ function UserConvo(){
   useEffect(() => {
     const messagesForms = document.getElementById('messagesForm');
     messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+
     if(msg !== ""){
       setTimeout(() => setFormMsg(<div className={classes.msgWrapper}>
         <Paper className={classes.typingMsgPaper}>
@@ -22,7 +23,6 @@ function UserConvo(){
       </div>),100)
     }else {
       setTimeout(() => setFormMsg(),100)
-      
     }
   },[msg])
   

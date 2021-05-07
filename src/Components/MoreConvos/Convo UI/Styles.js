@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     
   },
   allMessages: {
-    overflowY: "scroll",
+    overflowY: "auto",
     height: "740px"
   },
   paperSecond: {
