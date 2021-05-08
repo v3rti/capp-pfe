@@ -7,6 +7,7 @@ function GlobalState(props){
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({fullName:"Full Name"});
+  const [convoMessages, setConvoMessages] = useState([]);
   const history = useHistory();
   const location = useLocation();
 
@@ -21,8 +22,6 @@ function GlobalState(props){
         history.push('/login');
       }
     });
-    
-    
     
   }, [])
 

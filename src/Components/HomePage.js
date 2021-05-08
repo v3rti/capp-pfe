@@ -4,6 +4,8 @@ import {makeStyles} from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import MyContext from './ContextTest/MyContext';
 import Login from './LoginPage/Login';
+import axios from 'axios';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles({
   cardsWrapper: {
@@ -33,6 +35,11 @@ const useStyles = makeStyles({
     lineHeight: 1.5,
     height: 60,      /* height is 2x line-height, so two lines will display */
     overflow: "hidden"  /* prevents extra lines from being visible */
+  },
+  joininAlert: {
+    width: "70%",
+    margin: "0 auto",
+    border: "1px solid #89cb8b"
   }
   
 })
@@ -46,8 +53,11 @@ function HomePage(){
   const classes = useStyles();
   const [convos,setConvos] = useState([]);
   const history = useHistory();
-  const {isLoggedIn, setIsLoggedIn} = useContext(MyContext);
+  const {isLoggedIn, setIsLoggedIn, currentUser} = useContext(MyContext);
+  const [userJoined,setUserJoined] = useState(false);
+  
   let rightPage;
+
   useEffect(() => {
     fetch('/convos')
     .then(res => res.json())
@@ -60,11 +70,29 @@ function HomePage(){
     rightPage = "Please Login first"
   }
 
+  const userJoiningConvo = (convId) => {
+    axios.put(`/activeConvos/userjoin/${convId}`, {
+      fullName: currentUser.fullName,
+      username: currentUser.username,
+      joinedDate: Date.now()
+    }).then(res => {
+      if(res.data.nModified === 1){
+        setUserJoined(true);
+        setTimeout(() => setUserJoined(false),5000)
+        console.log("User joined")
+      }else{
+        setUserJoined(false);
+        console.log("User not joined");
+      }
+    })
+    .catch(err => console.log(err));
+  }
 
   return(
-
+    <div>
+    {userJoined ? <Alert className={classes.joininAlert} severity="success">You have successfully joined</Alert> : null}
     <div className={classes.cardsWrapper}>
-      
+ 
       {convos.map(card => {
         return (
         <Card className={classes.cardExample}>
@@ -78,7 +106,7 @@ function HomePage(){
             </Typography>
           </CardContent>
           <CardActions className={classes.cardButtons}>
-            <Button className={classes.buttons} color="secondary" variant="outlined">
+            <Button onClick={() => userJoiningConvo(card.cuid)} className={classes.buttons} color="secondary" variant="outlined">
               Join Convo
             </Button>
             <Button className={classes.buttons} color="secondary" variant="outlined" onClick={() => history.push(`/conversations/${card.cuid}`)}>
@@ -91,6 +119,7 @@ function HomePage(){
       })}
 
       
+    </div>
     </div>
   )
 }
