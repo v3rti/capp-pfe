@@ -100,8 +100,8 @@ const useStyles = makeStyles({
   },
   textSubParagraph: {
     marginLeft: 30,
-    marginTop: -12,
-    marginBottom: -10
+    marginTop: -15,
+    marginBottom: 10
   }
   
 })

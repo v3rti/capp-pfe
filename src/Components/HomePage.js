@@ -56,7 +56,7 @@ function HomePage(){
   const {isLoggedIn, setIsLoggedIn, currentUser} = useContext(MyContext);
   const [userJoined,setUserJoined] = useState(false);
   
-  let rightPage;
+ 
 
   useEffect(() => {
     fetch('/convos')
@@ -64,28 +64,26 @@ function HomePage(){
     .then(data => setConvos(data));
   },[])
 
-  if(isLoggedIn){
-    rightPage = "Welcome user";
-  }else{
-    rightPage = "Please Login first"
-  }
+  
 
   const userJoiningConvo = (convId) => {
-    axios.put(`/activeConvos/userjoin/${convId}`, {
-      fullName: currentUser.fullName,
-      username: currentUser.username,
-      joinedDate: Date.now()
-    }).then(res => {
-      if(res.data.nModified === 1){
-        setUserJoined(true);
-        setTimeout(() => setUserJoined(false),5000)
-        console.log("User joined")
-      }else{
-        setUserJoined(false);
-        console.log("User not joined");
-      }
-    })
-    .catch(err => console.log(err));
+    
+      axios.put(`/activeConvos/userjoin/${convId}`, {
+        fullName: currentUser.fullName,
+        username: currentUser.username,
+        joinedDate: Date.now()
+      }).then(res => {
+        if(res.data.nModified === 1){
+          setUserJoined(true);
+          setTimeout(() => setUserJoined(false),5000)
+          console.log("User joined")
+        }else{
+          setUserJoined(false);
+          console.log("User not joined");
+        }
+      })
+      .catch(err => console.log(err));
+    
   }
 
   return(

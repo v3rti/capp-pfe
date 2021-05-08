@@ -3,6 +3,7 @@ import {Paper, TextField, Typography} from '@material-ui/core';
 import useStyles from './Convo UI/Styles';
 import RightSideBar from './Convo UI/RightSideBar';
 import MyContext from '../ContextTest/MyContext';
+import axios from 'axios';
 
 function UserConvo(){
   
@@ -10,30 +11,40 @@ function UserConvo(){
   const [msg, setMsg] = useState("");
   const [formMsg, setFormMsg] = useState("");
   const [userMsg, setUserMsg] = useState([]);
-  const {currentUser} = useContext(MyContext);
+  const {currentUser,dbMessages, setDbMessages} = useContext(MyContext);
 
   useEffect(() => {
     const messagesForms = document.getElementById('messagesForm');
     messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
-
     if(msg !== ""){
-      setTimeout(() => setFormMsg(<div className={classes.msgWrapper}>
+      setFormMsg(<div className={classes.msgWrapper}>
         <Paper className={classes.typingMsgPaper}>
           <Typography variant="body1" color="textSecondary" className={classes.textParagraph}>Someone is typing....</Typography>
         </Paper>
-      </div>),100)
+      </div>)
     }else {
-      setTimeout(() => setFormMsg(),100)
+      setFormMsg();
     }
   },[msg])
+
+  useEffect(() => {
+    setUserMsg(dbMessages);
+  },[dbMessages])
   
-  const handleInputSend = (e) => {
+  const handleInputSend = async  (e) => {
     if(e.key === 'Enter'){
       const msgDate = new Date(Date.now());
       if(msg.replace(/\s/g, '') !== ""){
-      setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);
+      // setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);*
+      await axios.put('/activeConvos/chats/8lDyXMFYknzadiq2', {
+        message: msg,
+        sender: currentUser.username,
+        date: msgDate
+      }).then(res => setUserMsg(dbMessages));
       setMsg("");
+      
     }}
+    
   }
 
   const handleInputChange = (e) => {
@@ -81,7 +92,7 @@ function UserConvo(){
           </Paper>
         </div>
         <Typography variant="body2" className={classes.textSubParagraph}>
-        Sent by {currentUser.fullName}, {umsg.date}
+        Sent by {umsg.senderUsername}, {umsg.messageDate}
         </Typography>
         </>
 
