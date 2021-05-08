@@ -63,7 +63,7 @@ const useStyles = makeStyles({
     width: "auto",
     borderRadius: "20px",
     marginBottom: "20px",
-    backgroundColor: "#F5F5F5"
+    backgroundColor: "#F5F5F5",
   },
   typingMsgPaper: {
     paddingRight: "4px",
@@ -97,6 +97,11 @@ const useStyles = makeStyles({
   },
   icon: {
     fontSize: "50px"
+  },
+  textSubParagraph: {
+    marginLeft: 30,
+    marginTop: -12,
+    marginBottom: -10
   }
   
 })

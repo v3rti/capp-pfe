@@ -6,7 +6,7 @@ import {useHistory, useLocation} from 'react-router-dom';
 function GlobalState(props){
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({fullName:"Full Name"});
   const history = useHistory();
   const location = useLocation();
 

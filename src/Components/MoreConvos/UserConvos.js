@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Paper, TextField, Typography} from '@material-ui/core';
 import useStyles from './Convo UI/Styles';
 import RightSideBar from './Convo UI/RightSideBar';
-
+import MyContext from '../ContextTest/MyContext';
 
 function UserConvo(){
   
@@ -10,6 +10,7 @@ function UserConvo(){
   const [msg, setMsg] = useState("");
   const [formMsg, setFormMsg] = useState("");
   const [userMsg, setUserMsg] = useState([]);
+  const {currentUser} = useContext(MyContext);
 
   useEffect(() => {
     const messagesForms = document.getElementById('messagesForm');
@@ -28,8 +29,9 @@ function UserConvo(){
   
   const handleInputSend = (e) => {
     if(e.key === 'Enter'){
+      const msgDate = new Date(Date.now());
       if(msg.replace(/\s/g, '') !== ""){
-      setUserMsg([...userMsg, {message: msg, user: "random"}]);
+      setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);
       setMsg("");
     }}
   }
@@ -58,20 +60,31 @@ function UserConvo(){
             <Typography variant="body1" className={classes.textParagraph}>Testing a very long text here  Aliquam id commodo tortor, vel euismod dui. Mauris eget ex id massa placerat rutrum in vel purus. Donec luctus tincidunt aliquam. Nullam vulputate aliquam diam vitae lacinia. Pellentesque convallis dictum nisl, a cursus felis commodo quis. Nulla tellus ante, finibus quis vehicula eget, convallis at velit</Typography>
         </Paper>
         </div>
+        <div>
         <div className={classes.msgWrapper}>
         <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>1WORD</Typography>
         </Paper>
         </div>
+        <Typography variant="body2" className={classes.textSubParagraph}>
+              Username here, date
+        </Typography>
+        </div>
         {/* Messages sent by user displaying from here */}
         {userMsg !== undefined ? userMsg.map(umsg => {
-          return <div className={classes.msgWrapper}>
+          return <>
+          <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
             <Typography variant="body1" className={classes.textParagraph}>
               {umsg.message}
             </Typography>
           </Paper>
         </div>
+        <Typography variant="body2" className={classes.textSubParagraph}>
+        Sent by {currentUser.fullName}, {umsg.date}
+        </Typography>
+        </>
+
         }) : null}
         
         {formMsg}

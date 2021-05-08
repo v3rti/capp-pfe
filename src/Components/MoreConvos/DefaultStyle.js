@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     borderRadius: 8,
     justifyContent: "center",
     boxShadow: "0px 8px 15px rgba(0, 0, 0, 0.4)"
-  }
+  },
+  
   
 
 })

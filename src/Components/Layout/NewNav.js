@@ -23,6 +23,8 @@ function DefaultLayout({children}) {
     history.push(item.path);
   }
 
+  const userFullName = currentUser.fullName
+
   const handleCurrentPage = (item) => {
     if(location.pathname === item.path){
       return classes.currentPage
@@ -50,14 +52,13 @@ function DefaultLayout({children}) {
           
           {isLoggedIn ? 
           <>
-          <Typography end>{currentUser.fullName}</Typography>  
+          <Typography end>{userFullName}</Typography>  
           <IconButton className={classes.avaIcon}>
           <Avatar
           button 
           onClick={() => history.push('/user')}
-          className={classes.avatar}
-           >
-             M
+          className={classes.avatar} >
+            {userFullName[0].toUpperCase()}
            </Avatar>
            </IconButton>
            </>
