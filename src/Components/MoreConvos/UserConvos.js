@@ -10,11 +10,9 @@ function UserConvo(){
   const classes = useStyles();  
   const [msg, setMsg] = useState("");
   const [formMsg, setFormMsg] = useState("");
-  const [userMsg, setUserMsg] = useState([]);
   const {currentUser,dbMessages, setDbMessages} = useContext(MyContext);
-
+  const messagesForms = document.getElementById('messagesForm');
   useEffect(() => {
-    const messagesForms = document.getElementById('messagesForm');
     messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
     if(msg !== ""){
       setFormMsg(<div className={classes.msgWrapper}>
@@ -25,13 +23,12 @@ function UserConvo(){
     }else {
       setFormMsg();
     }
+    
   },[msg])
 
-  useEffect(() => {
-    setUserMsg(dbMessages);
-  },[dbMessages])
   
-  const handleInputSend = async  (e) => {
+  
+  const handleInputSend = async (e) => {
     if(e.key === 'Enter'){
       const msgDate = new Date(Date.now());
       if(msg.replace(/\s/g, '') !== ""){
@@ -40,10 +37,11 @@ function UserConvo(){
         message: msg,
         sender: currentUser.username,
         date: msgDate
-      }).then(res => setUserMsg(dbMessages));
+      }).then(res => console.log(res));
       setMsg("");
-      
+      console.log("test from keydown")
     }}
+    messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
     
   }
 
@@ -82,7 +80,7 @@ function UserConvo(){
         </Typography>
         </div>
         {/* Messages sent by user displaying from here */}
-        {userMsg !== undefined ? userMsg.map(umsg => {
+        {dbMessages !== undefined ? dbMessages.map(umsg => {
           return <>
           <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
