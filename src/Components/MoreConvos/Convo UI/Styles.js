@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     display: "flex",
   },
   avatarColor: {
-    backgroundColor: "red"
+    backgroundColor: "#F50057"
   },
   avatarColorTest: {
     backgroundColor: "green"

@@ -10,7 +10,10 @@ function GlobalState(props){
   const history = useHistory();
   const location = useLocation();
   const [dbMessages, setDbMessages] = useState([]);
+  const [userConvos,setUserConvos] = useState([]);
+  const [currentConvo,setCurrentConvo] = useState("");
 
+  
   useEffect(async () => {
     setIsLoggedIn(localStorage.getItem('loginStatus') === "true");
     
@@ -22,9 +25,14 @@ function GlobalState(props){
         history.push('/login');
       }
     });
+
+    await axios.get('/convos').then(res => setUserConvos(res.data));
+
   },[])
 
   useEffect(async () => {
+    // Changes happen here
+
     await axios.get('/activeConvos/messages/8lDyXMFYknzadiq2')
     .then(res => setDbMessages(res.data)); 
   },[dbMessages])
@@ -33,11 +41,13 @@ function GlobalState(props){
     localStorage.setItem('loginStatus', isLoggedIn);
   })
 
+ 
+
 
   
 
   return(
-    <MyContext.Provider value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages}}>
+    <MyContext.Provider value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages,userConvos,setUserConvos}}>
       {props.children}
     </MyContext.Provider>
   )

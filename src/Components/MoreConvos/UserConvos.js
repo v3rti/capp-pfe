@@ -12,8 +12,10 @@ function UserConvo(){
   const [formMsg, setFormMsg] = useState("");
   const {currentUser,dbMessages, setDbMessages} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
+  
   useEffect(() => {
-    messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+    if(messagesForms) messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+    
     if(msg !== ""){
       setFormMsg(<div className={classes.msgWrapper}>
         <Paper className={classes.typingMsgPaper}>
