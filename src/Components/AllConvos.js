@@ -23,9 +23,9 @@ function AllConvos(){
     if(id !== undefined){
     axios.get(`/convos/${id}`).then(res => {
       if(res.data === null){
-        setCompo(<ErrorConvo />)
+        
       }else {
-        setCompo(<DbConvo />)
+        setCompo(<UserConvos />);
       }
     })}
     else{

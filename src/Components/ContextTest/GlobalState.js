@@ -33,7 +33,7 @@ function GlobalState(props){
   useEffect(async () => {
     // Changes happen here
 
-    await axios.get('/activeConvos/messages/8lDyXMFYknzadiq2')
+    await axios.get(`/activeConvos/messages/${currentConvo}`)
     .then(res => setDbMessages(res.data)); 
   },[dbMessages])
 
@@ -47,7 +47,8 @@ function GlobalState(props){
   
 
   return(
-    <MyContext.Provider value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages,userConvos,setUserConvos}}>
+    <MyContext.Provider 
+    value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages,userConvos,setUserConvos,currentConvo,setCurrentConvo}}>
       {props.children}
     </MyContext.Provider>
   )

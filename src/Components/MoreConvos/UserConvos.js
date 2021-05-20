@@ -4,15 +4,22 @@ import useStyles from './Convo UI/Styles';
 import RightSideBar from './Convo UI/RightSideBar';
 import MyContext from '../ContextTest/MyContext';
 import axios from 'axios';
+import {useParams} from 'react-router-dom';
 
 function UserConvo(){
   
   const classes = useStyles();  
   const [msg, setMsg] = useState("");
   const [formMsg, setFormMsg] = useState("");
-  const {currentUser,dbMessages, setDbMessages} = useContext(MyContext);
+  const {currentUser,dbMessages, setDbMessages,setCurrentConvo,currentConvo} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
-  
+  const {id} = useParams();
+
+  useEffect(() => {
+    setCurrentConvo(id);
+    console.log(id);
+  },[id])
+
   useEffect(() => {
     if(messagesForms) messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
     
@@ -35,7 +42,7 @@ function UserConvo(){
       const msgDate = new Date(Date.now());
       if(msg.replace(/\s/g, '') !== ""){
       // setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);*
-      await axios.put('/activeConvos/chats/8lDyXMFYknzadiq2', {
+      await axios.put(`/activeConvos/chats/${currentConvo}`, {
         message: msg,
         sender: currentUser.username,
         date: msgDate
