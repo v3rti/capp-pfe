@@ -32,16 +32,15 @@ function GlobalState(props){
 
   useEffect(async () => {
     // Changes happen here
-
-    await axios.get(`/activeConvos/messages/${currentConvo}`)
-    .then(res => setDbMessages(res.data)); 
-  },[currentConvo])
+    if(currentConvo !== undefined){
+      await axios.get(`/activeConvos/messages/${currentConvo}`)
+      .then(res => setDbMessages(res.data)); 
+    }
+  },[currentConvo,dbMessages])
 
   useEffect(() => {
     localStorage.setItem('loginStatus', isLoggedIn);
   })
-
-
 
   return(
     <MyContext.Provider 

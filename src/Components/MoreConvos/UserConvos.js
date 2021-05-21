@@ -14,10 +14,16 @@ function UserConvo(){
   const {currentUser,dbMessages, setDbMessages,setCurrentConvo,currentConvo} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
   const {id} = useParams();
-
+  
+  
   useEffect(() => {
-    setCurrentConvo(id);
-    console.log(id);
+    if(id !== undefined) {
+      setCurrentConvo(id)
+      console.log("id is not undefined in here" + id);
+    }else{
+      setCurrentConvo(undefined);
+      console.log('yeyt')
+    }
   },[id])
 
   useEffect(() => {
@@ -63,31 +69,7 @@ function UserConvo(){
     <div className={classes.papersWrapper}>
       <Paper id="convoForm" className={classes.paperEx} elevation={3}>
       <div id="messagesForm" className={classes.allMessages}>
-        <div className={classes.msgWrapper}>
-          <Paper className={classes.msgPaper}>
-            <Typography variant="body1" className={classes.textParagraph}>Some message in hereSome message in hereSome message in hereSome message in hereSome message in here more text here </Typography>
-          </Paper>
-        </div>
-        <div className={classes.msgWrapper}>
-        <Paper className={classes.msgPaper}>
-            <Typography variant="body1" className={classes.textParagraph}>Testing small text</Typography>
-        </Paper>
-        </div>
-        <div className={classes.msgWrapper}>
-        <Paper className={classes.msgPaper}>
-            <Typography variant="body1" className={classes.textParagraph}>Testing a very long text here  Aliquam id commodo tortor, vel euismod dui. Mauris eget ex id massa placerat rutrum in vel purus. Donec luctus tincidunt aliquam. Nullam vulputate aliquam diam vitae lacinia. Pellentesque convallis dictum nisl, a cursus felis commodo quis. Nulla tellus ante, finibus quis vehicula eget, convallis at velit</Typography>
-        </Paper>
-        </div>
-        <div>
-        <div className={classes.msgWrapper}>
-        <Paper className={classes.msgPaper}>
-            <Typography variant="body1" className={classes.textParagraph}>1WORD</Typography>
-        </Paper>
-        </div>
-        <Typography variant="body2" className={classes.textSubParagraph}>
-              Username here, date
-        </Typography>
-        </div>
+        
         {/* Messages sent by user displaying from here */}
         {dbMessages !== undefined ? dbMessages.map(umsg => {
           return <>

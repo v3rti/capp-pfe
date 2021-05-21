@@ -18,15 +18,12 @@ function AllConvos(){
 
   useEffect(() =>  {
 
-    console.log(id);
+    
 
     if(id !== undefined){
-    axios.get(`/convos/${id}`).then(res => {
-      if(res.data === null){
-        
-      }else {
-        setCompo(<UserConvos />);
-      }
+    axios.get(`/activeConvos/messages/${id}`).then(res => {
+      if(res.data !== null) setCompo(<UserConvos />);
+      
     })}
     else{
       setCompo(<UserConvos />);
