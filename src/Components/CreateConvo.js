@@ -1,11 +1,13 @@
 import React from 'react';
-import {Button, Grid, makeStyles, TextField} from '@material-ui/core';
-import {useState, useEffect} from 'react';
+import {Button, FormControl, Grid, InputLabel, makeStyles, MenuItem, Select, TextField} from '@material-ui/core';
+import {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {Alert, AlertTitle} from '@material-ui/lab/';
 import {useHistory} from 'react-router-dom';
 import uniqid from 'uniqid';
 import randomstring from 'randomstring';
+import MyContext from './ContextTest/MyContext'
+
 
 const useStyles = makeStyles(theme => {
   return {
@@ -22,24 +24,40 @@ const useStyles = makeStyles(theme => {
     },
     checkItOut: {
       cursor: "pointer"
-    }
+    },
+    privacyFormControl:{
+      width: 700,
+      display: "block",
+      marginTop: "20px",
+      margin: "0 auto",
+      marginBottom: "50px"
+    },
+    
+    
+    
   }
 });
 
 
 function CreateConvo(){
+  const {currentUser} = useContext(MyContext);
   const [ranId, setRanId] = useState("");
   const classes = useStyles();
   const [title,setTitle] = useState("");
   const [image,setImage] = useState("");
   const [description,setDescription] = useState("");
+  const [isPublic,setIsPublic] = useState(true);
+
   const [alert,setAlert] = useState(false);
   const history = useHistory();
 
+
   useEffect(() => {
     setRanId(randomstring.generate(8) + uniqid());
+    console.log(currentUser)
   },[])
 
+  
   
 
   async function handleFormSubmit(e){
@@ -49,13 +67,16 @@ function CreateConvo(){
     // Setting a random id
 
     const newConvo = {
-      title: title,
-      description: description,
-      image: image,
-      cuid: ranId
+      title,
+      description,
+      image,
+      cuid: ranId,
+      owner: currentUser.username,
+      isPublic,
+      currentUser
     }
     
-    await axios.post('/convos', newConvo)
+    await axios.post('/activeConvos/createConvo', newConvo)
     .then(res => console.log(res.data));
 
     setTitle("");
@@ -87,7 +108,19 @@ function CreateConvo(){
             <TextField value={title} onChange={(e) => setTitle(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Title"/>
             <TextField value={image} onChange={(e) => setImage(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Image Source"/>
             <TextField value={description} onChange={(e) => setDescription(e.target.value)} className={classes.textF} fullWidth variant="outlined" multiline rows={4} label="Description"/>
+            
+            <FormControl className={classes.privacyFormControl}>
+              <InputLabel className={classes.privacyLabel}>Conversation Privacy</InputLabel>
+              <Select value={isPublic} onChange={(e) => {
+                 setIsPublic(e.target.value)
+                 console.log(currentUser.username)
+                 }}>
+                <MenuItem value={true}>Public</MenuItem>
+                <MenuItem value={false}>Private</MenuItem>
+              </Select>
+            </FormControl>
             <Button type="submit" className={classes.textF} variant="contained" color="secondary">Create Conversation</Button>
+            
           </form>
         </Grid>
       </Grid>

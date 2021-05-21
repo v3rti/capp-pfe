@@ -26,7 +26,7 @@ function GlobalState(props){
       }
     });
 
-    await axios.get('/convos').then(res => setUserConvos(res.data));
+    await axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
 
   },[])
 
@@ -35,16 +35,13 @@ function GlobalState(props){
 
     await axios.get(`/activeConvos/messages/${currentConvo}`)
     .then(res => setDbMessages(res.data)); 
-  },[dbMessages])
+  },[currentConvo])
 
   useEffect(() => {
     localStorage.setItem('loginStatus', isLoggedIn);
   })
 
- 
 
-
-  
 
   return(
     <MyContext.Provider 

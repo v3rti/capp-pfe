@@ -59,7 +59,7 @@ function HomePage(){
  
 
   useEffect(() => {
-    fetch('/convos')
+    fetch('/activeConvos/all')
     .then(res => res.json())
     .then(data => setConvos(data));
   },[])
@@ -67,7 +67,6 @@ function HomePage(){
   
 
   const userJoiningConvo = (convId) => {
-    
       axios.put(`/activeConvos/userjoin/${convId}`, {
         fullName: currentUser.fullName,
         username: currentUser.username,
