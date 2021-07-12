@@ -5,6 +5,7 @@ import RightSideBar from './Convo UI/RightSideBar';
 import MyContext from '../ContextTest/MyContext';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
+import ConvoMembers from './Convo UI/ConvoMembers';
 
 function UserConvo(){
   
@@ -67,6 +68,9 @@ function UserConvo(){
  
   return(
     <div className={classes.papersWrapper}>
+      <div className={classes.paperSecond} >
+        <RightSideBar />
+      </div>
       <Paper id="convoForm" className={classes.paperEx} elevation={3}>
       <div id="messagesForm" className={classes.allMessages}>
         
@@ -92,10 +96,11 @@ function UserConvo(){
         <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" color="secondary" />   
       </div>
       </Paper>
+      {id !== undefined ? <div className={classes.paperThird}>
+      <ConvoMembers /> </div> : null}
+      
 
-      <div className={classes.paperSecond} >
-        <RightSideBar />
-      </div>
+      
 
     </div>
   )

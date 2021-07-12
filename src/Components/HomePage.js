@@ -7,6 +7,7 @@ import Login from './LoginPage/Login';
 import axios from 'axios';
 import { Alert } from '@material-ui/lab';
 
+
 const useStyles = makeStyles({
   cardsWrapper: {
     display: "flex",
@@ -56,6 +57,7 @@ function HomePage(){
   const [userJoined,setUserJoined] = useState(0);
   const [alreadyJoined,setAlreadyJoined] = useState(false);
   const [usrConvs,setUsrConvos] = useState([]);
+  const [found,setFound] = useState();
 
   let xd = false;
   
@@ -68,45 +70,57 @@ function HomePage(){
     joining(cid);
   }
  
-  const joining = (id) => {
+  const joining = async (id) => {
     if(xd){
       setUserJoined(-1);
       setTimeout(() => setUserJoined(0),5000)
       xd = false;
     }else{
-      axios.put(`/activeConvos/userjoin/${id}`, {
-        fullName: currentUser.fullName,
-        email: currentUser.email,
-        joinedDate: Date.now()
-      }).then(res => {
-        if(res.data.nModified === 1){
-          setUserJoined(1);
-          setTimeout(() => setUserJoined(0),5000)
-          console.log("User joined")
-        }else{
-          setUserJoined(false);
-          console.log("User not joined");
-        }
-      })
-      .catch(err => console.log(err));
-
-      axios.put('/users/joins/', {
-        convo_id: id,
-        joined_date: Date.now(),
+      await axios.post('/activeConvos/waitinglist/',{
+        convoId: id,
         email: currentUser.email
-      }).then(res => console.log(res)).catch(err => console.log(err));
+      }).then(async res => {
+        if(res.data){
+          setUserJoined(2);
+          setTimeout(() => setUserJoined(0),5000)
+        }else{
+          await axios.put(`/activeConvos/userjoinwait/${id}`, {
+            email: currentUser.email,
+            joinedDate: Date.now()
+          }).then( res => {
+            if(res.data.nModified === 1){
+              setUserJoined(1);
+              setTimeout(() => setUserJoined(0),5000)
+              console.log("Sent to the waitlist")
+            }else{
+              setUserJoined(false);
+              console.log("User not joined");
+            }
+          })
+          .catch(err => console.log(err)) 
+        }
+      });
+
+      
+  
+      
+      // axios.put('/users/joins/', {
+      //   convo_id: id,
+      //   joined_date: Date.now(),
+      //   email: currentUser.email
+      // }).then(res => console.log(res)).catch(err => console.log(err));
     }
   }
   
   return(
     <div>
-    {userJoined === 1 ? <Alert className={classes.joininAlert} severity="success">You have successfully joined</Alert> : userJoined === -1 ?
-    <Alert className={classes.joininAlert} severity="error">You are already a memeber of this conversation!</Alert> : null}
+    {userJoined === 1 ? <Alert className={classes.joininAlert} severity="success">Joining Request Sent! Waiting Approval From Admin</Alert> : userJoined === -1 ?
+    <Alert className={classes.joininAlert} severity="error">You are already a memeber of this conversation!</Alert> : userJoined === 2 ?<Alert className={classes.joininAlert} severity="warning">You are on the waitlist of this conversation!</Alert> : null }
 
     <div className={classes.cardsWrapper}>
  
     {userConvos.map(card => {
-        return (
+        if(card.isPublic) return (
           <Card className={classes.cardExample}>
             <CardMedia className={classes.cardMediaImage} image={card.image} />
             <CardContent>

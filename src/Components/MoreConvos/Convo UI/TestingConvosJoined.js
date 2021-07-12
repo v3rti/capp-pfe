@@ -157,3 +157,32 @@
   </Card>
 })
 : null}
+
+
+//////
+
+
+await axios.post('/activeConvos/waitinglist/',{
+  convoId: id,
+  email: currentUser.email
+}).then(res => setFound(res.data));
+
+if(!found){
+  await axios.put(`/activeConvos/userjoinwait/${id}`, {
+    email: currentUser.email,
+    joinedDate: Date.now()
+  }).then(res => {
+    if(res.data.nModified === 1){
+      setUserJoined(1);
+      setTimeout(() => setUserJoined(0),5000)
+      console.log("Sent to the waitlist")
+    }else{
+      setUserJoined(false);
+      console.log("User not joined");
+    }
+  })
+  .catch(err => console.log(err)) 
+}else{
+  setUserJoined(2);
+  setTimeout(() => setUserJoined(0),5000)
+}

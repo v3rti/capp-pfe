@@ -71,7 +71,7 @@ function CreateConvo(){
       description,
       image,
       cuid: ranId,
-      owner: currentUser.username,
+      owner: currentUser.email,
       isPublic,
       currentUser
     }
@@ -83,10 +83,16 @@ function CreateConvo(){
     .then(res => console.log(res.data));
     
     await axios.put('/users/joins', {
-      username: currentUser.username,
+      username: currentUser.email,
       convo_id: ranId,
       joined_date: Date.now()
     }).then(res => console.log(res.data));
+
+    await axios.put('/users/joins/', {
+      convo_id: ranId,
+      joined_date: Date.now(),
+      email: currentUser.email
+    }).then(res => console.log(res)).catch(err => console.log(err));
 
     setTitle("");
     setImage("");

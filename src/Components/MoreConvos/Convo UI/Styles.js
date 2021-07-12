@@ -9,9 +9,9 @@ const useStyles = makeStyles({
   },
   paperEx: {
     position: "relative",
-    width: 1300,
+    width: 1000,
     height: 800,
-    backgroundColor: "grey",
+    backgroundColor: "#D3D3D3",
     
   },
   allMessages: {
@@ -19,16 +19,18 @@ const useStyles = makeStyles({
     height: "740px"
   },
   paperSecond: {
-    marginLeft: "4px",
-    width: 320,
+    marginRight: "4px",
+    width: 280,
     height: 800,
-    backgroundColor: "grey",
+    backgroundColor: "#DCDCDC",
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    borderRadius: '2.5%'
   },
   convoCard: {
-    height: 70,
-    width: 305,
+    marginTop: "4px",
+    height: 60,
+    width: 270,
     borderRadius: "25px",
     cursor: "pointer",
     marginBottom: "5px",
@@ -91,7 +93,7 @@ const useStyles = makeStyles({
     position: "absolute",
     bottom: 0,
     left: 0,
-    width: 1300, 
+    width: 1000, 
     borderRadius: "10px",
     backgroundColor: "#F5F5F5"
   },
@@ -102,8 +104,33 @@ const useStyles = makeStyles({
     marginLeft: 30,
     marginTop: -15,
     marginBottom: 10
+  },
+  paperThird: {
+    marginLeft: "4px",
+    width: 220,
+    height: 800,
+    backgroundColor: "#e0e0e0",
+    display: "flex",
+    justifyContent: "center",
+    borderRadius: '2.5%'
+  },
+  memberCard: {
+    width: 200,
+    height: 44,
+    display:"flex",
+    marginTop: "5px",
+    marginBottom: "5px",
+    borderRadius:"10px",
+    padding: 0
+  },
+  memberAvatar: {
+    backgroundColor: "white",
+    color: "#F50057",
+    border: "2px solid #F50057",
+    height:30,
+    width: 30
+
   }
-  
 })
 
 export default useStyles;

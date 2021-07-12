@@ -35,12 +35,14 @@ function GlobalState(props){
   },[])
 
   useEffect(async ()=> {
-    const {email} =  currentUser;
-    await axios.post('/status/currentUser',{
-     email
-   }).then(res => {
-     setCurrentConvosJoined(res.data);
-   });
+    if(isLoggedIn){
+      const {email} =  currentUser;
+      await axios.post('/status/currentUser',{
+        email
+      }).then(res => {
+      setCurrentConvosJoined(res.data);
+      });
+    }
  });
 
   useEffect(async () => {
