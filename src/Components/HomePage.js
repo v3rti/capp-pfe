@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   joininAlert: {
     width: "70%",
     margin: "0 auto",
-    border: "1px solid #89cb8b"
+    border: "1px solid black"
   }
   
 })
@@ -51,30 +51,37 @@ function HomePage(){
 
 
   const classes = useStyles();
-  const [convos,setConvos] = useState([]);
   const history = useHistory();
-  const {isLoggedIn, setIsLoggedIn, currentUser} = useContext(MyContext);
-  const [userJoined,setUserJoined] = useState(false);
+  const {currentUser,userConvos,currentConvosJoined,setCurrentConvosJoined} = useContext(MyContext);
+  const [userJoined,setUserJoined] = useState(0);
+  const [alreadyJoined,setAlreadyJoined] = useState(false);
+  const [usrConvs,setUsrConvos] = useState([]);
+
+  let xd = false;
   
+  const userJoiningConvo = (cid) => {
+    currentConvosJoined.map(curr => {
+      if(curr.convo_id === cid){
+        xd = true;
+      }
+    })
+    joining(cid);
+  }
  
-
-  useEffect(() => {
-    fetch('/activeConvos/all')
-    .then(res => res.json())
-    .then(data => setConvos(data));
-  },[])
-
-  
-
-  const userJoiningConvo = (convId) => {
-      axios.put(`/activeConvos/userjoin/${convId}`, {
+  const joining = (id) => {
+    if(xd){
+      setUserJoined(-1);
+      setTimeout(() => setUserJoined(0),5000)
+      xd = false;
+    }else{
+      axios.put(`/activeConvos/userjoin/${id}`, {
         fullName: currentUser.fullName,
-        username: currentUser.username,
+        email: currentUser.email,
         joinedDate: Date.now()
       }).then(res => {
         if(res.data.nModified === 1){
-          setUserJoined(true);
-          setTimeout(() => setUserJoined(false),5000)
+          setUserJoined(1);
+          setTimeout(() => setUserJoined(0),5000)
           console.log("User joined")
         }else{
           setUserJoined(false);
@@ -82,38 +89,45 @@ function HomePage(){
         }
       })
       .catch(err => console.log(err));
-    
-  }
 
+      axios.put('/users/joins/', {
+        convo_id: id,
+        joined_date: Date.now(),
+        email: currentUser.email
+      }).then(res => console.log(res)).catch(err => console.log(err));
+    }
+  }
+  
   return(
     <div>
-    {userJoined ? <Alert className={classes.joininAlert} severity="success">You have successfully joined</Alert> : null}
+    {userJoined === 1 ? <Alert className={classes.joininAlert} severity="success">You have successfully joined</Alert> : userJoined === -1 ?
+    <Alert className={classes.joininAlert} severity="error">You are already a memeber of this conversation!</Alert> : null}
+
     <div className={classes.cardsWrapper}>
  
-      {convos.map(card => {
+    {userConvos.map(card => {
         return (
-        <Card className={classes.cardExample}>
-          <CardMedia className={classes.cardMediaImage} image={card.image} />
-          <CardContent>
-            <Typography variant="h5">
-              {card.title}
-            </Typography>
-            <Typography className={classes.descriptionText}  variant="body2" color="textSecondary">
-              {card.description}
-            </Typography>
-          </CardContent>
-          <CardActions className={classes.cardButtons}>
-            <Button onClick={() => userJoiningConvo(card.cuid)} className={classes.buttons} color="secondary" variant="outlined">
-              Join Convo
-            </Button>
-            <Button className={classes.buttons} color="secondary" variant="outlined" onClick={() => history.push(`/conversations/${card.cuid}`)}>
-              More Details
-            </Button>
-          </CardActions>
-        </Card>
-        
+          <Card className={classes.cardExample}>
+            <CardMedia className={classes.cardMediaImage} image={card.image} />
+            <CardContent>
+              <Typography variant="h5">
+                {card.title}
+              </Typography>
+              <Typography className={classes.descriptionText}  variant="body2" color="textSecondary">
+                {card.description}
+              </Typography>
+            </CardContent>
+            <CardActions className={classes.cardButtons}>
+              <Button onClick={() => userJoiningConvo(card.cuid)} className={classes.buttons} color="secondary" variant="outlined">
+                Join Convo
+              </Button>
+              <Button className={classes.buttons} color="secondary" variant="outlined" onClick={() => history.push(`/conversations/${card.cuid}`)}>
+                More Details
+              </Button>
+            </CardActions>
+          </Card>
         )
-      })}
+    })}
 
       
     </div>

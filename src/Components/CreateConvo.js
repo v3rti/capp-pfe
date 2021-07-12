@@ -54,7 +54,7 @@ function CreateConvo(){
 
   useEffect(() => {
     setRanId(randomstring.generate(8) + uniqid());
-    console.log(currentUser)
+    
   },[])
 
   
@@ -75,14 +75,22 @@ function CreateConvo(){
       isPublic,
       currentUser
     }
+    // const convoJoined = { START FROM HERE
+    //   convos_joined: cuid
+    // }
     
     await axios.post('/activeConvos/createConvo', newConvo)
     .then(res => console.log(res.data));
+    
+    await axios.put('/users/joins', {
+      username: currentUser.username,
+      convo_id: ranId,
+      joined_date: Date.now()
+    }).then(res => console.log(res.data));
 
     setTitle("");
     setImage("");
     setDescription("");
-    
     setAlert(true);
     setTimeout(() => setAlert(false),5000);
   }

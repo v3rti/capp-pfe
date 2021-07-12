@@ -3,15 +3,23 @@ import {Avatar, Card, CardHeader, Typography} from '@material-ui/core';
 import MyContext from '../../ContextTest/MyContext';
 import useStyles from './Styles';
 import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 
 function LeftSideBar(){
   
-  const {userConvos,currentUser} = useContext(MyContext);
+  const {userConvos,currentUser,setCurrentConvosJoined,currentConvosJoined} = useContext(MyContext);
+  const [testCurr,setTestCurr] = useState([]);
   const classes = useStyles();
   const history = useHistory();
-  const [convosList,setConvosList] = useState([]);
-  
 
+  useEffect(async ()=> {
+    const {email} = currentUser;
+    await axios.post('/status/currentUser',{
+      email
+    }).then(res => {
+      setCurrentConvosJoined(res.data);
+    });
+  },[]);
 
   return(
     <div>
@@ -21,25 +29,29 @@ function LeftSideBar(){
         }
       })))} */}
 
-      {userConvos ? userConvos.map(usrConvo => {
-      return usrConvo.users_joined.map(usr => {
-      if(usr.username === currentUser.username){
-        return <Card onClick={() => {
-          history.push(`/conversations/${usrConvo.cuid}`)
-       }} className={classes.convoCard}>
-             <CardHeader avatar={
-               <Avatar className={classes.avatarColor}>
-                 {usrConvo.title[0]}
-               </Avatar>
-             }
-             title={<Typography variant="body2">{usrConvo.title}</Typography>}
-             subheader={<Typography variant="body2" color="textSecondary" noWrap>{usrConvo.description} </Typography>}
-             />
-        </Card>
-      }
-      else{
+        {userConvos && currentConvosJoined ? userConvos.map(usrCo => {
+          return currentConvosJoined.map(currJoined => {
+            if(currJoined.convo_id === usrCo.cuid){
+                return <Card onClick={() => {
+                  history.push(`/conversations/${usrCo.cuid}`)
+              }} className={classes.convoCard}>
+                    <CardHeader avatar={
+                      <Avatar className={classes.avatarColor}>
+                        {usrCo.title[0]}
+                      </Avatar>
+                    }
+                    title={<Typography variant="body2">{usrCo.title}</Typography>}
+                    subheader={<Typography variant="body2" color="textSecondary" noWrap>{usrCo.description} </Typography>}
+                    />
+                </Card>
+            }
+          })
+        })
+
+        : null}
+
+  
         
-      }})}) : null}
       
     </div>
   )
