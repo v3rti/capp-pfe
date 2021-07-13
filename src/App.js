@@ -3,7 +3,7 @@ import CreateConvo from './Components/CreateConvo';
 import AllConvos from './Components/AllConvos';
 import NotFound from './Components/NotFound';
 import HomePage from './Components/HomePage';
-import Friends from './Components/Friends';
+import Requests from './Components/Requests';
 import Search from './Components/Search';
 import Login from './Components/LoginPage/Login';
 import DefaultLayout from './Components/Layout/DefaultLayout';
@@ -35,8 +35,8 @@ function App() {
                 <Route exact path="/conversations/:id">
                   <AllConvos />
                 </Route>
-                <Route exact path="/friends">
-                  <Friends />
+                <Route exact path="/requests">
+                  <Requests />
                 </Route>
                 <Route exact path="/search">
                   <Search />

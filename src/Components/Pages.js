@@ -24,9 +24,9 @@ const sitePages = [
     },
     
     {
-      title: 'Friends',
+      title: 'Requests',
       icon: <GroupOutlinedIcon color="secondary" />,
-      path: '/friends'
+      path: '/requests'
     },
     {
       title: 'Search',
