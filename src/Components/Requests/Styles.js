@@ -1,14 +1,16 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  chooseConvos:{
-
+  chooseConvos: {
+    display: "flex",
+    marginBottom: "10px",
+    marginTop: "10px"
   },
   mainDiv:{
     display: "flex",
     backgroundColor: "whitesmoke",
     width: "600px",
-    height: "800px",
+    height: "750px",
     border: "1px solid black",
     borderRadius: "20px",
     flexDirection: "column",
@@ -25,6 +27,14 @@ const useStyles = makeStyles({
   },
   formControl: {
     minWidth:"250px",
+    margin: "0 auto"
+    
+  },
+  alertDiv:{
+    height:"40px",
+    width:"600px",
+    backgroundColor:"red",
+    margin:"0 auto"
   }
   
 })

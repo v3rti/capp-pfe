@@ -15,7 +15,7 @@ function Requests(){
   const [waitingList,setWaitingList] = useState([]);
   const [selectedConvo,setSelectedConvo] = useState("aaaaa");
   const [startShow,setStartShow] = useState(false);
-  const [curerntEmail,setCurrentEmail] = useState("");
+
 
   async function fetching(){
     await axios.post('/activeConvos/owned/',{
@@ -28,10 +28,7 @@ function Requests(){
   },[currentUser])
 
 
-  
   const changeConvo = (e) => {
-    
-    console.log(e.target.value);
     
     setSelectedConvo(e.target.value);
     if(e.target.value !== "aaaaa"){
@@ -44,11 +41,36 @@ function Requests(){
     }).catch(err => setWaitingList(""))}else{
       setStartShow(false)
     }
+
+    console.log(selectedConvo);
   }
-  
+
+  const reqDeny = (e) => {
+    console.log("Denied",e);
+
+    axios.post('/activeConvos/waitDenied/',{
+      email: e,
+      convoId: selectedConvo,
+    }).then(res => console.log(res.data))
+
+  };
+
+  const reqAccept = (e) => {
+    console.log("Accepted",e)
+    
+    axios.post('/activeConvos/waitAccept/',{
+      email: e,
+      convoId: selectedConvo,
+      joinedDate: Date.now()
+    }).then(res => console.log(res.data))
+
+  };
 
   return(
   <div className={classes.mainReal}>
+    <div className={classes.alertDiv}>
+
+    </div>
      <div className={classes.chooseConvos}>
     <FormControl className={classes.formControl}>
         <InputLabel>Select Conversation</InputLabel>
@@ -66,7 +88,13 @@ function Requests(){
     </div>
     <div className={classes.mainDiv}>
       {
-      startShow ? waitingList.map(member => member.map((waiting) => <RequestCard memberName={waiting.email} joinDate={waiting.joinedDate}/>)) : null}
+      startShow ? waitingList.map(member => member.map((waiting) => <RequestCard 
+        acceptRequest={reqAccept} 
+        denyRequest={reqDeny}
+        memberName={waiting.email} 
+        joinDate={waiting.joinedDate}
+      />)) 
+      : null}
     </div>
   </div>
   )

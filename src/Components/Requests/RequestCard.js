@@ -19,15 +19,16 @@ function RequestCard(props){
         action={
           <div>
             <IconButton>
-              <CancelOutlinedIcon className={classes.approveIcons}fontSize="large" />
+              <CancelOutlinedIcon onClick={() => props.denyRequest(props.memberName)} className={classes.approveIcons} fontSize="large" />
             </IconButton>
             <IconButton>
-              <CheckCircleOutlineOutlinedIcon className={classes.approveIcons} fontSize="large" />
+              <CheckCircleOutlineOutlinedIcon onClick={() => props.acceptRequest(props.memberName)} className={classes.approveIcons} fontSize="large" />
             </IconButton>
           </div>
         }
         title={props.memberName}
         subheader={props.joinDate}
+        value={props.memberName}
       />
     </Card>
   )
