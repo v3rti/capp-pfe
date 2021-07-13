@@ -20,17 +20,20 @@ function GlobalState(props){
 
   
 
-  useEffect(async () => {
-    setIsLoggedIn(localStorage.getItem('loginStatus') === "true");
-    
-    await axios.get('/status').then(res => {
-      setCurrentUser(res.data)
-    }).catch(error => {
-      setIsLoggedIn(false)
-      if(location.pathname !== "/signup"){
-        history.push('/login');
-      }
-    });
+  useEffect(() => {
+    async function fetching(){
+      setIsLoggedIn(localStorage.getItem('loginStatus') === "true");
+      
+      await axios.get('/status').then(res => {
+        setCurrentUser(res.data)
+      }).catch(error => {
+        setIsLoggedIn(false)
+        if(location.pathname !== "/signup"){
+          history.push('/login');
+        }
+      });
+    }
+    fetching();
 
   },[])
 

@@ -1,92 +1,75 @@
-import React, {useContext, useState} from 'react';
-import { Avatar, Card, CardHeader, FormControl, IconButton, InputLabel, MenuItem, Paper, Select } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import React, {useContext, useState, useEffect} from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import useStyles from './Requests/Styles';
 import axios from 'axios';
 import MyContext from './ContextTest/MyContext';
+import RequestCard from './Requests/RequestCard';
 
-
-
-const useStyles = makeStyles({
-  chooseConvos:{
-
-  },
-  mainDiv:{
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "whitesmoke",
-    width: "600px",
-    height: "800px",
-    margin: "0 auto",
-    border: "1px solid black",
-    borderRadius: "20px"
-    
-  },
-  userCard:{
-    height: "80px",
-    width: "600px",
-    borderRadius: "20px",
-    
-  },
-  approveIcons: {
-    color: "#ff4081"
-  },
-  formControl: {
-    minWidth:"250px",
-  }
-  
-})
 
 function Requests(){
 
+
   const classes = useStyles();
-  const {currentUser} = useContext(MyContext);
+  const {currentUser,setCurrentUser} = useContext(MyContext);
   const [ownedConvos, setOwnedConvos] = useState([]);
+  const [waitingList,setWaitingList] = useState([]);
+  const [selectedConvo,setSelectedConvo] = useState("aaaaa");
+  const [startShow,setStartShow] = useState(false);
+  const [curerntEmail,setCurrentEmail] = useState("");
 
-  axios.get('/activeConvos/owned/',{
-    email: currentUser.email
-  }).then(res => setOwnedConvos(res.data))
+  async function fetching(){
+    await axios.post('/activeConvos/owned/',{
+      email: currentUser.email
+    }).then(res => setOwnedConvos(res.data)).catch(err => setOwnedConvos(""));
+  }
+  
+  useEffect(() => {
+    fetching();
+  },[currentUser])
 
-  return(<div className={classes.mainReal}>
+
+  
+  const changeConvo = (e) => {
+    
+    console.log(e.target.value);
+    
+    setSelectedConvo(e.target.value);
+    if(e.target.value !== "aaaaa"){
+    axios.post('/activeConvos/ownedWaitingList/',{
+      email: currentUser.email,
+      convoId: e.target.value
+    }).then(res => {
+      setWaitingList(res.data);
+      setStartShow(true);
+    }).catch(err => setWaitingList(""))}else{
+      setStartShow(false)
+    }
+  }
+  
+
+  return(
+  <div className={classes.mainReal}>
      <div className={classes.chooseConvos}>
     <FormControl className={classes.formControl}>
         <InputLabel>Select Conversation</InputLabel>
         <Select
-          // value={age}
-          // onChange={handleChange}
+          value={selectedConvo}
+          onChange={changeConvo}
         >
-         {ownedConvos.map(conv => <MenuItem value={conv.cuid}>{conv.title}</MenuItem>)}
+          <MenuItem value="aaaaa">Choose a Conversation</MenuItem>
+         {ownedConvos.map(conv => {
+           return <MenuItem value={conv.cuid}>{conv.title}</MenuItem>
+         })}
+          
         </Select>
       </FormControl>
     </div>
-  <div className={classes.mainDiv}>
- 
-    <Card className={classes.userCard}>
-    <CardHeader
-        avatar={
-          <Avatar className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <div>
-            <IconButton>
-              <CancelOutlinedIcon className={classes.approveIcons}fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <CheckCircleOutlineOutlinedIcon className={classes.approveIcons} fontSize="large" />
-            </IconButton>
-          </div>
-        }
-        title="Said something"
-        subheader="September 14, 2016"
-        subheader="September 14, 2016"
-      />
-    </Card>
-
+    <div className={classes.mainDiv}>
+      {
+      startShow ? waitingList.map(member => member.map((waiting) => <RequestCard memberName={waiting.email} joinDate={waiting.joinedDate}/>)) : null}
+    </div>
   </div>
-  </div>)
+  )
 }
 
 export default Requests;
