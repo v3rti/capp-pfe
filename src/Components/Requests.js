@@ -4,6 +4,7 @@ import useStyles from './Requests/Styles';
 import axios from 'axios';
 import MyContext from './ContextTest/MyContext';
 import RequestCard from './Requests/RequestCard';
+import Alert from '@material-ui/lab/Alert';
 
 
 function Requests(){
@@ -15,7 +16,8 @@ function Requests(){
   const [waitingList,setWaitingList] = useState([]);
   const [selectedConvo,setSelectedConvo] = useState("aaaaa");
   const [startShow,setStartShow] = useState(false);
-
+  const [activateAlert,setActivateAlert] = useState(0);
+  const [requestEdited,setRequestEdited] = useState(false);
 
   async function fetching(){
     await axios.post('/activeConvos/owned/',{
@@ -52,7 +54,10 @@ function Requests(){
       email: e,
       convoId: selectedConvo,
     }).then(res => console.log(res.data))
-
+    
+    setActivateAlert(-1);
+    setTimeout(() => setActivateAlert(0),5000);
+    
   };
 
   const reqAccept = (e) => {
@@ -63,13 +68,16 @@ function Requests(){
       convoId: selectedConvo,
       joinedDate: Date.now()
     }).then(res => console.log(res.data))
-
+    
+    setActivateAlert(1);
+    setTimeout(() => setActivateAlert(0),5000);
   };
 
   return(
   <div className={classes.mainReal}>
     <div className={classes.alertDiv}>
-
+      {activateAlert === 1 ? <Alert severity="success">User's Request Successfully Accepted!</Alert>
+      : activateAlert === -1 ? <Alert severity="info">User's Request Successfully Denied!</Alert> : null}
     </div>
      <div className={classes.chooseConvos}>
     <FormControl className={classes.formControl}>

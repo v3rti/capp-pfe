@@ -31,9 +31,7 @@ const useStyles = makeStyles({
     
   },
   alertDiv:{
-    height:"40px",
-    width:"600px",
-    backgroundColor:"red",
+    width: "600px",
     margin:"0 auto"
   }
   
