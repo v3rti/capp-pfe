@@ -18,7 +18,16 @@ function GlobalState(props){
     axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
   },[])
 
-  
+  useEffect(async () => {
+    await axios.get('/status').then(res => {
+      setCurrentUser(res.data)
+    }).catch(error => {
+      setIsLoggedIn(false)
+      if(location.pathname !== "/signup"){
+        history.push('/login');
+      }
+    });
+  },[isLoggedIn])  
 
   useEffect(() => {
     async function fetching(){
@@ -54,11 +63,13 @@ function GlobalState(props){
       await axios.get(`/activeConvos/messages/${currentConvo}`)
       .then(res => setDbMessages(res.data)); 
     }
-  },[currentConvo,dbMessages])
+  },[currentConvo])
 
   useEffect(() => {
     localStorage.setItem('loginStatus', isLoggedIn);
-  })
+  },[currentUser])
+
+  
 
   return(
     <MyContext.Provider 

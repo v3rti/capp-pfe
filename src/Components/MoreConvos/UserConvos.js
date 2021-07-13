@@ -12,19 +12,14 @@ function UserConvo(){
   const classes = useStyles();  
   const [msg, setMsg] = useState("");
   const [formMsg, setFormMsg] = useState("");
-  const {currentUser,dbMessages, setDbMessages,setCurrentConvo,currentConvo} = useContext(MyContext);
+  const {currentUser,dbMessages,setCurrentConvo,currentConvo} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
   const {id} = useParams();
   
   
   useEffect(() => {
-    if(id !== undefined) {
-      setCurrentConvo(id)
-      console.log("id is not undefined in here" + id);
-    }else{
-      setCurrentConvo(undefined);
-      console.log('yeyt')
-    }
+    setCurrentConvo(id)
+    console.log("id is not undefined in here" + id);
   },[id])
 
   useEffect(() => {
