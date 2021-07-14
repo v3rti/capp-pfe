@@ -10,9 +10,9 @@ import ConvoMembers from './Convo UI/ConvoMembers';
 function UserConvo(){
   
   const classes = useStyles();  
-  const [msg, setMsg] = useState("");
+  
   const [formMsg, setFormMsg] = useState("");
-  const {currentUser,dbMessages,setCurrentConvo,currentConvo} = useContext(MyContext);
+  const {currentUser,dbMessages,setCurrentConvo,currentConvo,msg,setMsg} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
   const {id} = useParams();
   
@@ -46,9 +46,9 @@ function UserConvo(){
       // setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);*
       await axios.put(`/activeConvos/chats/${currentConvo}`, {
         message: msg,
-        sender: currentUser.username,
+        sender: currentUser.fullName,
         date: msgDate
-      }).then(res => console.log(res));
+      }).then(res => console.log(res.data)).catch(err => console.log(err))
       setMsg("");
       console.log("test from keydown")
     }}
@@ -64,13 +64,15 @@ function UserConvo(){
   return(
     <div className={classes.papersWrapper}>
       <div className={classes.paperSecond} >
-        <RightSideBar />
+      <div className={classes.conversationsRed}>Your Conversations</div>
+        <div className={classes.elementsConvMmbrs}><RightSideBar /></div>
       </div>
       <Paper id="convoForm" className={classes.paperEx} elevation={3}>
       <div id="messagesForm" className={classes.allMessages}>
         
         {/* Messages sent by user displaying from here */}
         {dbMessages !== undefined ? dbMessages.map(umsg => {
+          let dateformat = umsg.messageDate;
           return <>
           <div className={classes.msgWrapper}>
           <Paper className={classes.msgPaper}>
@@ -80,7 +82,7 @@ function UserConvo(){
           </Paper>
         </div>
         <Typography variant="body2" className={classes.textSubParagraph}>
-        Sent by {umsg.senderUsername}, {umsg.messageDate}
+        Sent by {umsg.senderUsername}, {dateformat}
         </Typography>
         </>
 
@@ -91,8 +93,12 @@ function UserConvo(){
         <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" color="secondary" />   
       </div>
       </Paper>
+      
       {id !== undefined ? <div className={classes.paperThird}>
-      <ConvoMembers /> </div> : null}
+      <div className={classes.membersRed}>Members</div>
+      <div className={classes.elementsConvMmbrs}><ConvoMembers /></div>
+      </div> 
+      : null}
       
 
       

@@ -121,7 +121,7 @@ const useStyles = makeStyles({
     marginTop: "5px",
     marginBottom: "5px",
     borderRadius:"10px",
-    padding: 0
+    padding: 0,
   },
   memberAvatar: {
     backgroundColor: "white",
@@ -129,7 +129,33 @@ const useStyles = makeStyles({
     border: "2px solid #F50057",
     height:30,
     width: 30
-
+  },
+  conversationsRed: {
+    width: 280,
+    height: 50,
+    backgroundColor: "#F50057",
+    position: "absolute",
+    display:"flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontWeight: 600,
+    borderRadius: '2.5%'
+  },
+  membersRed: {
+    width: 220,
+    height: 50,
+    backgroundColor: "#F50057",
+    position: "absolute",
+    display:"flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontWeight: 600,
+    borderRadius: '2.5%'
+  },
+  elementsConvMmbrs: {
+   marginTop: 54,
   }
 })
 

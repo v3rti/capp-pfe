@@ -13,6 +13,9 @@ function GlobalState(props){
   const [userConvos,setUserConvos] = useState([]);
   const [currentConvo,setCurrentConvo] = useState("");
   const [currentConvosJoined,setCurrentConvosJoined] = useState([]);
+  const [waitList,setWaitList] = useState();
+  const [msg, setMsg] = useState("");
+  
 
   useEffect(() => {
     axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
@@ -55,7 +58,7 @@ function GlobalState(props){
       setCurrentConvosJoined(res.data);
       });
     }
- });
+ },[]);
 
   useEffect(async () => {
     // Changes happen here
@@ -63,7 +66,7 @@ function GlobalState(props){
       await axios.get(`/activeConvos/messages/${currentConvo}`)
       .then(res => setDbMessages(res.data)); 
     }
-  },[currentConvo])
+  },[msg,currentConvo])
 
   useEffect(() => {
     localStorage.setItem('loginStatus', isLoggedIn);
@@ -73,7 +76,7 @@ function GlobalState(props){
 
   return(
     <MyContext.Provider 
-    value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages,userConvos,setUserConvos,currentConvo,setCurrentConvo,currentConvosJoined,setCurrentConvosJoined}}>
+    value={{isLoggedIn, setIsLoggedIn,currentUser, setCurrentUser,dbMessages,setDbMessages,userConvos,setUserConvos,currentConvo,setCurrentConvo,currentConvosJoined,setCurrentConvosJoined,msg,setMsg}}>
       {props.children}
     </MyContext.Provider>
   )
