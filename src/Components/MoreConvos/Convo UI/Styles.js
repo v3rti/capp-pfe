@@ -27,10 +27,29 @@ const useStyles = makeStyles({
     justifyContent: "center",
     borderRadius: '2.5%'
   },
+  paperSecondv2: {
+    marginRight: "4px",
+    width: 1000,
+    height: 800,
+    backgroundColor: "#DCDCDC",
+    display: "flex",
+    justifyContent: "center",
+    borderRadius: '2.5%'
+  },
   convoCard: {
     marginTop: "4px",
     height: 60,
     width: 270,
+    borderRadius: "25px",
+    cursor: "pointer",
+    marginBottom: "5px",
+    backgroundColor: "#F5F5F5",
+    display: "flex",
+  },
+  convoCardv2: {
+    marginTop: "4px",
+    height: 60,
+    width: 970,
     borderRadius: "25px",
     cursor: "pointer",
     marginBottom: "5px",
@@ -112,7 +131,7 @@ const useStyles = makeStyles({
     backgroundColor: "#e0e0e0",
     display: "flex",
     justifyContent: "center",
-    borderRadius: '2.5%'
+    borderRadius: '2.5%',
   },
   memberCard: {
     width: 200,
@@ -142,6 +161,18 @@ const useStyles = makeStyles({
     fontWeight: 600,
     borderRadius: '2.5%'
   },
+  conversationsRedv2: {
+    width: 1000,
+    height: 50,
+    backgroundColor: "#F50057",
+    position: "absolute",
+    display:"flex",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    fontWeight: 600,
+    borderRadius: '2.5%'
+  },
   membersRed: {
     width: 220,
     height: 50,
@@ -156,6 +187,9 @@ const useStyles = makeStyles({
   },
   elementsConvMmbrs: {
    marginTop: 54,
+   overflowY: "scroll",
+   overflowX: "hidden",
+   maxHeight: 800,
   }
 })
 

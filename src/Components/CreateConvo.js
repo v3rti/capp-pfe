@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => {
 
 
 function CreateConvo(){
-  const {currentUser} = useContext(MyContext);
+  const {currentUser,setCurrentConvosJoined,setUserConvos,currentConvosJoined} = useContext(MyContext);
   const [ranId, setRanId] = useState("");
   const classes = useStyles();
   const [title,setTitle] = useState("");
@@ -58,7 +58,9 @@ function CreateConvo(){
   },[])
 
   
-  
+  // useEffect(() => {
+  //   axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
+  // },[currentConvosJoined]);
 
   async function handleFormSubmit(e){
     
@@ -79,6 +81,9 @@ function CreateConvo(){
     //   convos_joined: cuid
     // }
     
+   
+
+
     await axios.post('/activeConvos/createConvo', newConvo)
     .then(res => console.log(res.data));
     
@@ -93,6 +98,13 @@ function CreateConvo(){
       joined_date: Date.now(),
       email: currentUser.email
     }).then(res => console.log(res)).catch(err => console.log(err));
+
+    const {email} =  currentUser;
+      await axios.post('/status/currentUser',{
+        email
+      }).then(res => {
+      setCurrentConvosJoined(res.data);
+    });
 
     setTitle("");
     setImage("");
@@ -123,7 +135,7 @@ function CreateConvo(){
             <TextField value={image} onChange={(e) => setImage(e.target.value)} className={classes.textF} fullWidth variant="outlined" label="Image Source"/>
             <TextField value={description} onChange={(e) => setDescription(e.target.value)} className={classes.textF} fullWidth variant="outlined" multiline rows={4} label="Description"/>
             
-            <FormControl className={classes.privacyFormControl}>
+            {/* <FormControl className={classes.privacyFormControl}>
               <InputLabel className={classes.privacyLabel}>Conversation Privacy</InputLabel>
               <Select value={isPublic} onChange={(e) => {
                  setIsPublic(e.target.value)
@@ -132,7 +144,7 @@ function CreateConvo(){
                 <MenuItem value={true}>Public</MenuItem>
                 <MenuItem value={false}>Private</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
             <Button type="submit" className={classes.textF} variant="contained" color="secondary">Create Conversation</Button>
             
           </form>

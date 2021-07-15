@@ -4,13 +4,16 @@ import MyContext from '../../ContextTest/MyContext';
 import useStyles from './Styles';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios';
+import {useParams} from 'react-router-dom';
 
-function LeftSideBar(){
+
+function LeftSideBar(props){
   
   const {userConvos,currentUser,setCurrentConvosJoined,currentConvosJoined} = useContext(MyContext);
   const [testCurr,setTestCurr] = useState([]);
   const classes = useStyles();
   const history = useHistory();
+  const {id} = useParams();
 
   useEffect(async ()=> {
     const {email} = currentUser;
@@ -20,6 +23,8 @@ function LeftSideBar(){
       setCurrentConvosJoined(res.data);
     });
   },[]);
+
+  
 
   return(
     <div>
@@ -34,7 +39,7 @@ function LeftSideBar(){
             if(currJoined.convo_id === usrCo.cuid){
                 return <Card onClick={() => {
                   history.push(`/conversations/${usrCo.cuid}`)
-              }} className={classes.convoCard}>
+              }} className={props.convoCard}>
                     <CardHeader avatar={
                       <Avatar className={classes.avatarColor}>
                         {usrCo.title[0]}

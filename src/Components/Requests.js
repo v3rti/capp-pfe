@@ -17,7 +17,6 @@ function Requests(){
   const [selectedConvo,setSelectedConvo] = useState("aaaaa");
   const [startShow,setStartShow] = useState(false);
   const [activateAlert,setActivateAlert] = useState(0);
-  const [requestEdited,setRequestEdited] = useState(false);
 
   async function fetching(){
     await axios.post('/activeConvos/owned/',{
@@ -28,6 +27,19 @@ function Requests(){
   useEffect(() => {
     fetching();
   },[currentUser])
+
+  useEffect(() => {
+    if(selectedConvo !== "aaaaa"){
+    axios.post('/activeConvos/ownedWaitingList/',{
+      email: currentUser.email,
+      convoId: selectedConvo
+    }).then(res => {
+      setWaitingList(res.data);
+      setStartShow(true);
+    }).catch(err => setWaitingList(""))}else{
+      setStartShow(false)
+    }
+  },)
 
 
   const changeConvo = (e) => {

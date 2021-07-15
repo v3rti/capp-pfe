@@ -13,7 +13,7 @@ function UserPage(){
         <Card className={classes.mainCard}>
           <CardMedia className={classes.cardImage} image="https://source.unsplash.com/1400x300/?nature,water" />
           <CardContent className={classes.contentParent}>
-            <Avatar className={classes.avatarProfile} src="https://pbs.twimg.com/profile_images/1305913154787061765/_rJJQtsp_400x400.jpg" />
+            <Avatar className={classes.avatarProfile}>{currentUser.fullName[0].toUpperCase()}</Avatar>
             <Typography variant="h5" className={classes.fullName}>
               {currentUser.fullName}
             </Typography>

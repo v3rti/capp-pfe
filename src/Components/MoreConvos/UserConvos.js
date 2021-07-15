@@ -12,36 +12,47 @@ function UserConvo(){
   const classes = useStyles();  
   
   const [formMsg, setFormMsg] = useState("");
-  const {currentUser,dbMessages,setCurrentConvo,currentConvo,msg,setMsg} = useContext(MyContext);
+  const {currentUser,dbMessages,setCurrentConvo,currentConvo,msg,setMsg,currentConvosJoined} = useContext(MyContext);
   const messagesForms = document.getElementById('messagesForm');
+  const [isMember,setIsMember] = useState();
   const {id} = useParams();
   
   
   useEffect(() => {
-    setCurrentConvo(id)
-    console.log("id is not undefined in here" + id);
-  },[id])
+    console.log(id);
+   
+  },[])
 
   useEffect(() => {
-    if(messagesForms) messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
-    
-    if(msg !== ""){
-      setFormMsg(<div className={classes.msgWrapper}>
-        <Paper className={classes.typingMsgPaper}>
-          <Typography variant="body1" color="textSecondary" className={classes.textParagraph}>Someone is typing....</Typography>
-        </Paper>
-      </div>)
-    }else {
-      setFormMsg();
-    }
-    
-  },[msg])
+    setCurrentConvo(id)
+    console.log("id is not undefined in here" + id);
 
+  },[id])
+
+  // useEffect(() => {
+  //   if(messagesForms) messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+    
+  //   if(msg !== ""){
+  //     setFormMsg(<div className={classes.msgWrapper}>
+  //       <Paper className={classes.typingMsgPaper}>
+  //         <Typography variant="body1" color="textSecondary" className={classes.textParagraph}>Someone is typing....</Typography>
+  //       </Paper>
+  //     </div>)
+  //   }else {
+  //     setFormMsg();
+  //   }
+    
+  // },[msg])
+
+  useEffect(() => {
+    
+  },[])
   
-  
+
   const handleInputSend = async (e) => {
     if(e.key === 'Enter'){
-      const msgDate = new Date(Date.now());
+      messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+      const msgDate = new Date();
       if(msg.replace(/\s/g, '') !== ""){
       // setUserMsg([...userMsg, {message: msg, user: "random", date: msgDate.toLocaleTimeString()}]);*
       await axios.put(`/activeConvos/chats/${currentConvo}`, {
@@ -52,22 +63,28 @@ function UserConvo(){
       setMsg("");
       console.log("test from keydown")
     }}
-    messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
+    
     
   }
 
   const handleInputChange = (e) => {
     setMsg(e.target.value);
+    if(messagesForms) messagesForms.scrollTop = messagesForms.scrollHeight - messagesForms.clientHeight;
   }
 
  
   return(
     <div className={classes.papersWrapper}>
-      <div className={classes.paperSecond} >
+
+      {id === undefined ? <div className={classes.paperSecondv2} >
+      <div className={classes.conversationsRedv2}>Your Conversations</div>
+        <div className={classes.elementsConvMmbrs}><RightSideBar convoCard={classes.convoCardv2}/></div>
+      </div> : <div className={classes.paperSecond} >
       <div className={classes.conversationsRed}>Your Conversations</div>
-        <div className={classes.elementsConvMmbrs}><RightSideBar /></div>
-      </div>
-      <Paper id="convoForm" className={classes.paperEx} elevation={3}>
+        <div className={classes.elementsConvMmbrs}><RightSideBar convoCard={classes.convoCard}/></div>
+      </div> }
+
+      {id !== undefined ? <Paper id="convoForm" className={classes.paperEx} elevation={3}>
       <div id="messagesForm" className={classes.allMessages}>
         
         {/* Messages sent by user displaying from here */}
@@ -82,7 +99,7 @@ function UserConvo(){
           </Paper>
         </div>
         <Typography variant="body2" className={classes.textSubParagraph}>
-        Sent by {umsg.senderUsername}, {dateformat}
+        Sent by {umsg.senderUsername}, {dateformat !== undefined ? dateformat : null}
         </Typography>
         </>
 
@@ -92,11 +109,12 @@ function UserConvo(){
 
         <TextField onKeyDown={handleInputSend} value={msg} onChange={handleInputChange} className={classes.actualTextField} fullWidth label="Type your message.." variant="outlined" color="secondary" />   
       </div>
-      </Paper>
+      </Paper> : null}
+      
       
       {id !== undefined ? <div className={classes.paperThird}>
       <div className={classes.membersRed}>Members</div>
-      <div className={classes.elementsConvMmbrs}><ConvoMembers /></div>
+      <div id="membersTab" className={classes.elementsConvMmbrs}><ConvoMembers /></div>
       </div> 
       : null}
       

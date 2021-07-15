@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     justifyContent:"center"
     
   },
+  
   cardExample: {
     margin: 15,
     width: 320
@@ -24,12 +25,12 @@ const useStyles = makeStyles({
     
   },
   cardButtons: {
-    justifyContent: "center",
+    
     
     padding: 10
   },
   buttons:{
-    width: '50%',
+    width: '100%',
     
   },
   descriptionText: {
@@ -53,28 +54,54 @@ function HomePage(){
 
   const classes = useStyles();
   const history = useHistory();
-  const {currentUser,userConvos,currentConvosJoined,setCurrentConvosJoined} = useContext(MyContext);
+  const {currentUser,userConvos,currentConvosJoined,setCurrentConvosJoined,setUserConvos} = useContext(MyContext);
   const [userJoined,setUserJoined] = useState(0);
-  const [alreadyJoined,setAlreadyJoined] = useState(false);
-  const [usrConvs,setUsrConvos] = useState([]);
-  const [found,setFound] = useState();
-
-  let xd = false;
   
-  const userJoiningConvo = (cid) => {
-    currentConvosJoined.map(curr => {
-      if(curr.convo_id === cid){
-        xd = true;
-      }
-    })
+  useEffect( () => {
+    const {email} = currentUser;
+     axios.post('/status/curerntUser',{
+      email
+    }).then(res => setCurrentConvosJoined(res.data));
+  },[])
+  
+
+  // useEffect(async () => {
+  //   const {email} =  currentUser;
+  //   await axios.post('/status/currentUser',{
+  //     email
+  //   }).then(res => {
+  //   setCurrentConvosJoined(res.data);
+  //   });
+
+  //   await axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
+
+  // },[])
+  
+  let xd = false;
+
+  const userJoiningConvo = async (cid) => {
+    const {email} =  currentUser;
+    await axios.post('/status/currentUser',{
+      email
+    }).then(res => {
+      setCurrentConvosJoined(res.data);
+      currentConvosJoined.map(curr => {
+        if(curr.convo_id === cid){
+            xd= true;
+        }
+      })
+    });
+
     joining(cid);
   }
  
   const joining = async (id) => {
     if(xd){
       setUserJoined(-1);
-      setTimeout(() => setUserJoined(0),5000)
-      xd = false;
+      setTimeout(() =>{
+        setUserJoined(0)
+        xd = false;
+      },5000)
     }else{
       await axios.post('/activeConvos/waitinglist/',{
         convoId: id,
@@ -135,9 +162,7 @@ function HomePage(){
               <Button onClick={() => userJoiningConvo(card.cuid)} className={classes.buttons} color="secondary" variant="outlined">
                 Join Convo
               </Button>
-              <Button className={classes.buttons} color="secondary" variant="outlined" onClick={() => history.push(`/conversations/${card.cuid}`)}>
-                More Details
-              </Button>
+              
             </CardActions>
           </Card>
         )

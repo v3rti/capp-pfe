@@ -19,7 +19,7 @@ function GlobalState(props){
 
   useEffect(() => {
     axios.get('/activeConvos/all/').then(res => setUserConvos(res.data));
-  },[])
+  })
 
   useEffect(async () => {
     await axios.get('/status').then(res => {
@@ -58,7 +58,7 @@ function GlobalState(props){
       setCurrentConvosJoined(res.data);
       });
     }
- },[]);
+ },[currentUser]);
 
   useEffect(async () => {
     // Changes happen here

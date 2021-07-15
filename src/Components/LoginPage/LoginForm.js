@@ -3,6 +3,7 @@ import React, {useContext, useState} from 'react';
 import MyContext from '../ContextTest/MyContext';
 import useStyles from './Styles';
 import Cookies from 'js-cookie';
+import { Alert } from '@material-ui/lab';
 
 function LoginForm(){ 
 
@@ -10,7 +11,7 @@ function LoginForm(){
   const {isLoggedIn,setIsLoggedIn,setCurrentUser,currentUser} = useContext(MyContext);
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const [statusUwu, setStatusUwu] = useState("");  
+  const [loginStatus, setLoginStatus] = useState();  
   const [cookies,setCookies] = useState("");
 
 
@@ -30,9 +31,10 @@ function LoginForm(){
 
     if(res.status === 200){
         setIsLoggedIn(true);
-        
+        setLoginStatus(0)
     }else{
         setIsLoggedIn(false)
+        setLoginStatus(1)
     }
     
     
@@ -44,7 +46,9 @@ function LoginForm(){
   return(
     
     <div className={classes.wrapper}>
-      {statusUwu}
+      
+      {loginStatus === 1 ? <Alert severity="error">Please check your email or password!</Alert> : null}
+
       <Typography className={classes.textTitle} variant="h3">
         Login And Chat now!
       </Typography>
